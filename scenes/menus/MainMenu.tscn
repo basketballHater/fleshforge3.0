@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=3 uid="uid://dv3llifqt46yy"]
+
+[ext_resource type="Script" uid="uid://d1bvp2sgqptr2" path="res://scripts/menus/MainMenu.gd" id="1_wlpbi"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_wlpbi")
+
+[node name="Background" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="TileLabel" type="Label" parent="UI"]
+offset_left = 137.0
+offset_top = 3.0
+offset_right = 240.0
+offset_bottom = 26.0
+text = "FLESH FORGE"
+
+[node name="BtnPlay" type="Button" parent="UI"]
+offset_left = 168.0
+offset_top = 71.0
+offset_right = 209.0
+offset_bottom = 102.0
+text = "Play"
+
+[node name="BtnCustomize" type="Button" parent="UI"]
+offset_left = 146.0
+offset_top = 110.0
+offset_right = 235.0
+offset_bottom = 141.0
+text = "Customize"
+
+[node name="BtnQuit" type="Button" parent="UI"]
+offset_left = 171.0
+offset_top = 148.0
+offset_right = 213.0
+offset_bottom = 179.0
+text = "Quit"

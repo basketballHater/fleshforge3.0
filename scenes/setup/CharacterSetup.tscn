@@ -1,0 +1,69 @@
+[gd_scene load_steps=3 format=3 uid="uid://bvsmbugq0dd5o"]
+
+[ext_resource type="PackedScene" uid="uid://dslt48xbqax6b" path="res://scenes/character/Character.tscn" id="1_2rfi8"]
+[ext_resource type="Script" uid="uid://dlsj00ufdoudn" path="res://scripts/setup/CharacterSetup.gd" id="1_kp0pa"]
+
+[node name="CharacterSetup" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 0.786526, -0.617558, 0, 0.617558, 0.786526, 0, 5.31023, 2.70901)
+script = ExtResource("1_kp0pa")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 475.0
+offset_top = 143.0
+offset_right = 1.0
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.00272, 1.00187)
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1446, 909)
+render_target_update_mode = 4
+
+[node name="Character" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_2rfi8")]
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="TitleLabel" type="Label" parent="UI"]
+offset_left = 211.0
+offset_top = 13.0
+offset_right = 387.0
+offset_bottom = 36.0
+scale = Vector2(4.36253, 4.36253)
+text = "Choose Your character"
+
+[node name="GenderPanel" type="HBoxContainer" parent="UI"]
+offset_left = 158.0
+offset_top = 199.0
+offset_right = 379.0
+offset_bottom = 306.0
+scale = Vector2(0.924099, 0.749258)
+
+[node name="BtnMale" type="Button" parent="UI/GenderPanel"]
+layout_mode = 2
+text = "Male"
+
+[node name="BtnFemale" type="Button" parent="UI/GenderPanel"]
+layout_mode = 2
+text = "Female"
+
+[node name="SkinPanel" type="HBoxContainer" parent="UI"]
+offset_left = 152.0
+offset_top = 336.0
+offset_right = 192.0
+offset_bottom = 376.0
+
+[node name="BtnConfirm" type="Button" parent="UI"]
+offset_left = 160.0
+offset_top = 422.0
+offset_right = 168.0
+offset_bottom = 430.0

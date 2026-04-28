@@ -1,0 +1,101 @@
+[gd_scene load_steps=3 format=3 uid="uid://bpehv4msdhfmk"]
+
+[ext_resource type="Script" uid="uid://bdxjp2csuv0yt" path="res://scripts/menus/Customization.gd" id="1_5cmea"]
+[ext_resource type="PackedScene" uid="uid://dslt48xbqax6b" path="res://scenes/character/Character.tscn" id="2_d8f6l"]
+
+[node name="Customization" type="Node3D"]
+script = ExtResource("1_5cmea")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.702509, -0.71167, -0.00252889, 0.44602, -0.443042, 0.777676, -0.554569, 0.545196, 0.628661, 0, 5.26795, 2.94872)
+shadow_enabled = true
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+offset_left = 411.0
+offset_top = 6.00002
+offset_right = 1491.0
+offset_bottom = 1086.0
+scale = Vector2(0.507138, 0.496372)
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+msaa_3d = 3
+screen_space_aa = 1
+use_taa = true
+use_debanding = true
+use_occlusion_culling = true
+mesh_lod_threshold = 0.0
+size = Vector2i(1080, 1080)
+size_2d_override = Vector2i(1080, 1080)
+render_target_update_mode = 4
+
+[node name="Character" parent="SubViewportContainer/SubViewport" instance=ExtResource("2_d8f6l")]
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="TabContainer" type="TabContainer" parent="UI"]
+offset_left = 57.0
+offset_right = 196.0
+offset_bottom = 40.0
+current_tab = 2
+
+[node name="Helmet" type="VBoxContainer" parent="UI/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="ItemList" type="VBoxContainer" parent="UI/TabContainer/Helmet"]
+layout_mode = 2
+
+[node name="Legs" type="VBoxContainer" parent="UI/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="ItemList" type="VBoxContainer" parent="UI/TabContainer/Legs"]
+layout_mode = 2
+
+[node name="Weapons" type="VBoxContainer" parent="UI/TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="ItemList" type="VBoxContainer" parent="UI/TabContainer/Weapons"]
+layout_mode = 2
+
+[node name="Back" type="VBoxContainer" parent="UI/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 3
+
+[node name="ItemList" type="VBoxContainer" parent="UI/TabContainer/Back"]
+layout_mode = 2
+
+[node name="ItemInfoPanel" type="PanelContainer" parent="UI"]
+offset_left = 4.0
+offset_top = 297.0
+offset_right = 322.0
+offset_bottom = 393.0
+
+[node name="ItemNameLabel" type="Label" parent="UI/ItemInfoPanel"]
+layout_mode = 2
+text = "Item"
+
+[node name="ItemClassLabel" type="Label" parent="UI/ItemInfoPanel"]
+layout_mode = 2
+text = "Class"
+horizontal_alignment = 1
+
+[node name="BtnSave" type="Button" parent="UI"]
+offset_left = 27.0
+offset_top = 441.0
+offset_right = 106.0
+offset_bottom = 472.0
+text = "Save"
+
+[node name="BtnBack" type="Button" parent="UI"]
+offset_left = 27.0
+offset_top = 491.0
+offset_right = 105.0
+offset_bottom = 506.0
+text = "Exit"

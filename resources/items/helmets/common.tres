@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="FFHelmetData" load_steps=3 format=3 uid="uid://dl8qum1t1heh3"]
+
+[ext_resource type="Script" uid="uid://bg4fwqubct8xu" path="res://resources/items/FFHelmetData.gd" id="1_uouyt"]
+[ext_resource type="Texture2D" uid="uid://bu03bsssp2cpl" path="res://icon.svg" id="2_uouyt"]
+
+[resource]
+script = ExtResource("1_uouyt")
+item_id = "helmet1MOCK"
+item_name = "Common"
+slot = "helmet"
+thumbnail = ExtResource("2_uouyt")
+metadata/_custom_type_script = "uid://bk86t2i1x1q4u"

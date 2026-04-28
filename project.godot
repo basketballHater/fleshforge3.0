@@ -1,0 +1,38 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="FleshForge"
+run/main_scene="res://scenes/setup/CharacterSetup.tscn"
+config/features=PackedStringArray("4.4", "Forward Plus")
+config/icon="res://icon.svg"
+
+[autoload]
+
+PlayerData="*res://autoloads/PlayerData.gd"
+SaveManager="*res://autoloads/SaveManager.gd"
+Boot="*res://autoloads/Boot.gd"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/mode=2
+window/stretch/mode="viewport"
+window/stretch/aspect="expand"
+window/stretch/scale=2.0
+
+[rendering]
+
+rendering_device/fallback_to_d3d12=false
+rendering_device/fallback_to_opengl3=false
+anti_aliasing/quality/use_taa=true
+lightmapping/stretch/aspect="expand"

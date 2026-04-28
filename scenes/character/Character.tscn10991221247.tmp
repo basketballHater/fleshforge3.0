@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://dslt48xbqax6b"]
+
+[ext_resource type="Script" uid="uid://dcdxt5argqtts" path="res://scripts/character/Character.gd" id="1_m23li"]
+[ext_resource type="PackedScene" uid="uid://cnedc0qc8r6gi" path="res://assets/models/both.glb" id="2_7dicd"]
+
+[node name="Character" type="CharacterBody3D"]
+script = ExtResource("1_m23li")
+
+[node name="PreviewCamera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.977453, 0.211154, 0, -0.211154, 0.977453, 0.0731368, 2.34463, 6.74786)
+
+[node name="both" parent="." instance=ExtResource("2_7dicd")]
+
+[node name="Circle_001" parent="both/Armature/Skeleton3D" index="0"]
+transform = Transform3D(-0.0620452, 0.0663628, -0.169215, -0.170634, -0.0828712, 0.0300648, -0.0626253, 0.160049, 0.0857306, -1.47744, 0.722027, -0.784262)
+
+[node name="Circle_002" parent="both/Armature/Skeleton3D" index="1"]
+transform = Transform3D(-0.141677, 0.108933, -0.0704619, -0.129735, -0.118688, 0.0773675, 0.000337876, 0.104645, 0.1611, -2.56059, 1.5303, 0.481868)
+
+[node name="Circle_017" parent="both/Armature/Skeleton3D" index="2"]
+transform = Transform3D(-0.393943, 1.21059e-08, 2.29789e-07, 2.22286e-07, 0.121716, 0.374668, -5.94837e-08, 0.374668, -0.121716, 1.15114e-14, 2.4245, 1.30092)
+
+[editable path="both"]

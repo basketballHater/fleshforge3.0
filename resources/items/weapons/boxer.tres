@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="FFWeaponData" load_steps=2 format=3 uid="uid://uf4i4bh8ttt2"]
+
+[ext_resource type="Script" uid="uid://dj55eu2yv4q46" path="res://resources/items/FFWeaponData.gd" id="1_218pp"]
+
+[resource]
+script = ExtResource("1_218pp")
+meshes = Array[Mesh]([null, null, null])
+weapon_class = 3
+animation_set = "slasher_default"
+cosmetic_variant_of = ""
+item_id = "boxerMOCK"
+item_name = "Boxer"
+slot = "weapon"
+metadata/_custom_type_script = "uid://dvw87nrlpeath"
