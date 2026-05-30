@@ -1,8 +1,9 @@
 extends Node
 
-@onready var btn_play:      Button = $UI/BtnPlay
-@onready var btn_customize: Button = $UI/BtnCustomize
-@onready var btn_quit:      Button = $UI/BtnQuit
+@onready var btn_play:      Button = $UI/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2/BtnPlay
+@onready var btn_versus:      Button = $UI/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer5/Versus
+@onready var btn_customize: Button = $UI/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer3/BtnCustomize
+@onready var btn_quit:      Button = $UI/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer4/BtnQuit
 
 func _ready() -> void:
 	btn_play.pressed.connect(_on_play)

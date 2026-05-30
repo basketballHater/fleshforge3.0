@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="FFArmourData" load_steps=2 format=3 uid="uid://c4simu6oke3nq"]
+
+[ext_resource type="Script" uid="uid://2w7ibmety4ql" path="res://resources/items/FFArmourData.gd" id="1_hymxv"]
+
+[resource]
+script = ExtResource("1_hymxv")
+meshes = Array[Mesh]([null])
+absorption = 0
+animation_set = "Unknown"
+item_id = "1"
+item_name = "Unknown"
+slot = "armour"
+metadata/_custom_type_script = "uid://byxpk51kyqq2h"

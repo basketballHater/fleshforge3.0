@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://coiqvnfun4fhf"
-path.s3tc="res://.godot/imported/both_skin.png-b944757d8e34963472d956e39257dde4.s3tc.ctex"
+uid="uid://qgwb530v1i1g"
+path.s3tc="res://.godot/imported/1_TankTop.png-589440f6b5698162fde88ecc158d0a52.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "4ade1b5effeb4e3cdab858c841b937c2"
+"md5": "dd14a4cd97c903c9c7f32e1c29efb45f"
 }
 
 [deps]
 
-source_file="res://assets/models/both_skin.png"
-dest_files=["res://.godot/imported/both_skin.png-b944757d8e34963472d956e39257dde4.s3tc.ctex"]
+source_file="res://assets/clothes/female/tops/1_TankTop.png"
+dest_files=["res://.godot/imported/1_TankTop.png-589440f6b5698162fde88ecc158d0a52.s3tc.ctex"]
 
 [params]
 

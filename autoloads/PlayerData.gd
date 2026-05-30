@@ -14,6 +14,9 @@ var weapon_path: String = ""   # right hand
 var legs_path:     String = ""
 var helmet_path:   String = ""
 var back_path:     String = ""
+var armour_path: String = ""
+var outfit_top_path:    String = ""
+var outfit_bottom_path: String = ""
 
 func to_dict() -> Dictionary:
 	return {
@@ -24,6 +27,9 @@ func to_dict() -> Dictionary:
 		"weapons_path": weapon_path,
 		"legs_path":    legs_path,
 		"back_path":    back_path,
+		"armour_path": armour_path,
+		"outfit_top_path":    outfit_top_path,
+		"outfit_bottom_path": outfit_bottom_path,
 	}
 
 func from_dict(d: Dictionary) -> void:
@@ -34,3 +40,6 @@ func from_dict(d: Dictionary) -> void:
 	weapon_path   = d.get("weapon_path", "")
 	legs_path       = d.get("legs_path",     "")
 	back_path       = d.get("back_path",     "")
+	armour_path       = d.get("armour_path",     "")
+	outfit_top_path    = d.get("outfit_top_path",    "")
+	outfit_bottom_path = d.get("outfit_bottom_path", "")

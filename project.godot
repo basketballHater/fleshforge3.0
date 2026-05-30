@@ -24,15 +24,11 @@ Boot="*res://autoloads/Boot.gd"
 [display]
 
 window/size/viewport_width=1920
-window/size/viewport_height=1080
-window/size/mode=2
-window/stretch/mode="viewport"
-window/stretch/aspect="expand"
-window/stretch/scale=2.0
+window/size/viewport_height=1280
+window/size/mode=3
 
 [rendering]
 
-rendering_device/fallback_to_d3d12=false
-rendering_device/fallback_to_opengl3=false
 anti_aliasing/quality/use_taa=true
 lightmapping/stretch/aspect="expand"
+lightmapping/transparent_background=false

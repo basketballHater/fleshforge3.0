@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="FFOutfitTopData" load_steps=2 format=3 uid="uid://dw4i704kck2pn"]
+
+[ext_resource type="Script" uid="uid://cyoub2r48vfx4" path="res://resources/items/FFOutfitTopData.gd" id="1_rin85"]
+
+[resource]
+script = ExtResource("1_rin85")
+gender = "male"
+item_id = "1"
+item_name = "spider"
+slot = "outfit_top"
+metadata/_custom_type_script = "uid://cfv7ehjydnapu"

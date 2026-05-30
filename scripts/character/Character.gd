@@ -13,6 +13,8 @@ const BONES_BACK   := ["back", "back_Up1.R", "back_Up2.R", "back_Up3.R", "back_U
 "back_Down5.R", "back_Up1.L", "back_Up2.L", "back_Up3.L", "back_Up4.L", 
 "back_Up5.L", "back_Down1.L", "back_Down2.L", "back_Down3.L", "back_Down4.L", 
 "back_Down5.L"]
+const BONES_ARMOUR_R := ["upperArm.R"]
+const BONES_ARMOUR_L := ["upperArm.L"]
 
 # ── Skin texture map ──────────────────────────────────────────────────────────
 const SKIN_TEXTURE_MAP := {
@@ -27,9 +29,16 @@ const SKIN_TEXTURE_MAP := {
 # ── Body mesh references ──────────────────────────────────────────────────────
 var body_male:   Node3D  # male body mesh (named "body" in GLB)
 var body_female: Node3D  # female body mesh (named "skin" in GLB)
+var cuffMale_R: Node3D
+var cuffMale_L: Node3D
+var cuffFemale_R: Node3D
+var cuffFemale_L: Node3D
 var top1:        Node3D  # female top pieces
 var top2:        Node3D
 var top3:        Node3D
+
+
+var _current_outfit_node: Node = null
 
 # ── Character model + skeleton ────────────────────────────────────────────────
 var character: Node3D    # the instantiated GLB root
@@ -43,6 +52,15 @@ var _slot_weapon_l: Array[MeshInstance3D] = []
 var _slot_legs_r:   Array[MeshInstance3D] = []
 var _slot_legs_l:   Array[MeshInstance3D] = []
 var _slot_back:   Array[MeshInstance3D] = []
+var _slot_armour_r: Array[MeshInstance3D] = []
+var _slot_armour_l: Array[MeshInstance3D] = []
+# ── Outfit slots (dynamically loaded and rebound) ────────────────────────────
+var _outfit_top_node:    MeshInstance3D = null
+var _outfit_bottom_node: MeshInstance3D = null
+
+# Pending async loads — track separately so both can load simultaneously
+var _pending_top_path:    String = ""
+var _pending_bottom_path: String = ""
 
 # ── Preview camera ────────────────────────────────────────────────────────────
 @onready var preview_camera: Camera3D = $PreviewCamera
@@ -59,7 +77,7 @@ func _ready() -> void:
 	print("Character: _ready called")
 
 	# Load and instantiate the GLB
-	var scene := load("res://assets/models/both.glb")
+	var scene := load("res://assets/models/bothEdit.glb")
 	if scene == null:
 		push_error("Character: failed to load both.glb")
 		return
@@ -68,9 +86,15 @@ func _ready() -> void:
 	add_child(character)
 
 	# Cache body mesh nodes
-	body_male   = character.get_node("Armature/Skeleton3D/body")
-	body_female = character.get_node("Armature/Skeleton3D/skin")
-	top1        = character.get_node("Armature/Skeleton3D/top1")
+	#body_male   = character.get_node("Armature/Skeleton3D/body")
+	#body_female = character.get_node("Armature/Skeleton3D/skin")
+	#top1        = character.get_node("Armature/Skeleton3D/top1")
+	body_male   = character.get_node("Armature/Skeleton3D/male")
+	body_female = character.get_node("Armature/Skeleton3D/female")
+	cuffMale_R   = character.get_node("Armature/Skeleton3D/cuffMale_R")
+	cuffMale_L = character.get_node("Armature/Skeleton3D/cuffMale_L")
+	cuffFemale_R   = character.get_node("Armature/Skeleton3D/cuffFemale_R")
+	cuffFemale_L = character.get_node("Armature/Skeleton3D/cuffFemale_L")
 	animation = character.get_node("AnimationPlayer")
 	#top2        = character.get_node("Armature/Skeleton3D/top2")
 	#top3        = character.get_node("Armature/Skeleton3D/top3")
@@ -92,10 +116,14 @@ func _ready() -> void:
 
 func _make_male(value: bool) -> void:
 	body_male.visible = value
+	cuffMale_R.visible = value
+	cuffMale_L.visible = value
 
 func _make_female(value: bool) -> void:
 	body_female.visible = value
-	top1.visible        = value
+	cuffFemale_R.visible = value
+	cuffFemale_L.visible = value
+	#top1.visible        = value
 	#top2.visible        = value
 	#top3.visible        = value
 
@@ -119,6 +147,98 @@ func apply_skin(skin_id: String) -> void:
 	_apply_texture_to_body(body_male,   tex)
 	_apply_texture_to_body(body_female, tex)
 
+# ── Outfit ────────────────────────────────────────────────────────────────────
+
+func apply_outfit_top(item: FFOutfitTopData) -> void:
+	if item == null:
+		_free_outfit_node(_outfit_top_node)
+		_outfit_top_node = null
+		return
+	var path :String= item.get_glb_path()
+	_load_outfit_async(path, true)
+
+func apply_outfit_bottom(item: FFOutfitBottomData) -> void:
+	if item == null:
+		_free_outfit_node(_outfit_bottom_node)
+		_outfit_bottom_node = null
+		return
+	var path :String= item.get_glb_path()
+	_load_outfit_async(path, false)
+
+func _load_outfit_async(glb_path: String, is_top: bool) -> void:
+	if glb_path == "":
+		push_warning("Character: outfit GLB path is empty")
+		return
+
+	ResourceLoader.load_threaded_request(glb_path)
+
+	if is_top:
+		_pending_top_path = glb_path
+	else:
+		_pending_bottom_path = glb_path
+
+	set_process(true)
+
+func _process(_delta: float) -> void:
+	_poll_outfit_load(_pending_top_path,    true)
+	_poll_outfit_load(_pending_bottom_path, false)
+
+	# Stop processing when nothing is pending
+	if _pending_top_path == "" and _pending_bottom_path == "":
+		set_process(false)
+
+func _poll_outfit_load(path: String, is_top: bool) -> void:
+	if path == "":
+		return
+
+	var status := ResourceLoader.load_threaded_get_status(path)
+
+	if status == ResourceLoader.THREAD_LOAD_LOADED:
+		var packed: PackedScene = ResourceLoader.load_threaded_get(path)
+		_apply_packed_outfit(packed, is_top)
+		if is_top:
+			_pending_top_path = ""
+		else:
+			_pending_bottom_path = ""
+
+	elif status == ResourceLoader.THREAD_LOAD_FAILED:
+		push_error("Character: async outfit load failed → '%s'" % path)
+		if is_top:
+			_pending_top_path = ""
+		else:
+			_pending_bottom_path = ""
+
+func _apply_packed_outfit(packed: PackedScene, is_top: bool) -> void:
+	var temp_root := packed.instantiate()
+
+	var outfit_mesh := _find_mesh_instance(temp_root)
+	if outfit_mesh == null:
+		push_error("Character: no MeshInstance3D found in outfit GLB")
+		temp_root.queue_free()
+		return
+
+	var new_instance := MeshInstance3D.new()
+	new_instance.mesh     = outfit_mesh.mesh
+	new_instance.skin     = _remap_skin(outfit_mesh.skin)
+	new_instance.skeleton = _skeleton.get_path()
+
+	_skeleton.add_child(new_instance)
+	temp_root.queue_free()
+
+	# Free the old outfit piece and replace it
+	if is_top:
+		_free_outfit_node(_outfit_top_node)
+		_outfit_top_node = new_instance
+		print("Character: outfit top applied")
+	else:
+		_free_outfit_node(_outfit_bottom_node)
+		_outfit_bottom_node = new_instance
+		print("Character: outfit bottom applied")
+
+func _free_outfit_node(node: MeshInstance3D) -> void:
+	if node != null and is_instance_valid(node):
+		node.queue_free()
+
 # ── Equipment ─────────────────────────────────────────────────────────────────
 
 #func apply_helmet(item: FFHelmetData) -> void:
@@ -140,7 +260,13 @@ func apply_legs(item: FFLegData) -> void:
 	_apply_multi_mesh(_slot_legs_l, item.meshes if item else [])
 
 func apply_back(item: FFBackData) -> void:
+	print("applyingback")
 	_apply_multi_mesh(_slot_back, item.meshes if item else [])
+
+func apply_armour(item: FFArmourData) -> void:
+	print("applyingarmour")
+	_apply_multi_mesh(_slot_armour_r, item.meshes if item else [])
+	_apply_multi_mesh(_slot_armour_l, item.meshes if item else [])
 
 func apply_from_player_data() -> void:
 	apply_gender(PlayerData.gender)
@@ -149,6 +275,9 @@ func apply_from_player_data() -> void:
 	_load_and_apply_weapon(PlayerData.weapon_path)
 	_load_and_apply_legs(PlayerData.legs_path)
 	_load_and_apply_back(PlayerData.back_path)
+	_load_and_apply_back(PlayerData.armour_path)
+	_load_and_apply_outfit_top(PlayerData.outfit_top_path)
+	_load_and_apply_outfit_bottom(PlayerData.outfit_bottom_path)
 
 func enable_preview_camera(enabled: bool) -> void:
 	if preview_camera:
@@ -192,6 +321,10 @@ func _build_equipment_slots() -> void:
 		_slot_legs_l.append(_create_bone_slot(bone))
 	for bone in BONES_BACK:
 		_slot_back.append(_create_bone_slot(bone))
+	for bone in BONES_ARMOUR_L:
+		_slot_armour_l.append(_create_bone_slot(bone))
+	for bone in BONES_ARMOUR_R:
+		_slot_armour_r.append(_create_bone_slot(bone))
 
 	print("Character: equipment slots built")
 
@@ -268,6 +401,22 @@ func _load_and_apply_back(path: String) -> void:
 	_load_meshes_into_item(item)  # <- add
 	apply_back(item)
 
+func _load_and_apply_armour(path: String) -> void:
+	if path == "":
+		apply_armour(null)
+		return
+	var item := load(path) as FFArmourData
+	_load_meshes_into_item(item)  # <- add
+	apply_armour(item)
+
+func _load_and_apply_outfit_top(path: String) -> void:
+	if path == "": apply_outfit_top(null); return
+	apply_outfit_top(load(path) as FFOutfitTopData)
+
+func _load_and_apply_outfit_bottom(path: String) -> void:
+	if path == "": apply_outfit_bottom(null); return
+	apply_outfit_bottom(load(path) as FFOutfitBottomData)
+
 func _load_meshes_into_item(item: FFItemData) -> void:
 	if item == null or not "meshes" in item:
 		return
@@ -281,3 +430,31 @@ func _load_meshes_into_item(item: FFItemData) -> void:
 	for i in range(min(mesh_nodes.size(), item.meshes.size())):
 		item.meshes[i] = mesh_nodes[i].mesh
 	instance.queue_free()
+
+# Loads an outfit GLB, extracts its mesh, rebinds it to our skeleton,
+# replaces the current outfit mesh instance
+
+func _find_mesh_instance(node: Node) -> MeshInstance3D:
+	if node is MeshInstance3D:
+		return node
+
+	for child in node.get_children():
+		var result := _find_mesh_instance(child)
+		if result:
+			return result
+
+	return null
+
+
+func _remap_skin(original_skin: Skin) -> Skin:
+	if original_skin == null:
+		return null
+	var new_skin := Skin.new()
+	for i in original_skin.get_bind_count():
+		var bone_name := original_skin.get_bind_name(i)
+		var bone_idx  := _skeleton.find_bone(bone_name)
+		if bone_idx == -1:
+			push_warning("Character: outfit bone '%s' not found in skeleton" % bone_name)
+			continue
+		new_skin.add_bind(bone_idx, original_skin.get_bind_pose(i))
+	return new_skin

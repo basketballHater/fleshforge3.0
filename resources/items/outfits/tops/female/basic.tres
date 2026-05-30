@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="FFOutfitTopData" load_steps=2 format=3 uid="uid://df21ggn50cafc"]
+
+[ext_resource type="Script" uid="uid://cyoub2r48vfx4" path="res://resources/items/FFOutfitTopData.gd" id="1_yqwjn"]
+
+[resource]
+script = ExtResource("1_yqwjn")
+gender = "female"
+item_id = "1"
+item_name = "tanktop"
+slot = "outfit_top"
+metadata/_custom_type_script = "uid://cfv7ehjydnapu"

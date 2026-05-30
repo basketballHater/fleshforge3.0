@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dw4m7bhgimkpn"
-path.s3tc="res://.godot/imported/both_Untitled.png-3e20dd2a1ac4ea7c141afeaf7c186f4f.s3tc.ctex"
+uid="uid://ceqir2dff72rj"
+path.s3tc="res://.godot/imported/1_pants2.png-f674a7bbf7cc8c46adbb5633fdb8e0b5.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "4ade1b5effeb4e3cdab858c841b937c2"
+"md5": "b364f456695d2d6e8f7947eadc258a10"
 }
 
 [deps]
 
-source_file="res://assets/models/both_Untitled.png"
-dest_files=["res://.godot/imported/both_Untitled.png-3e20dd2a1ac4ea7c141afeaf7c186f4f.s3tc.ctex"]
+source_file="res://assets/clothes/male/bottoms/1_pants2.png"
+dest_files=["res://.godot/imported/1_pants2.png-f674a7bbf7cc8c46adbb5633fdb8e0b5.s3tc.ctex"]
 
 [params]
 

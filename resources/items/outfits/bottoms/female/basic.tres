@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="FFOutfitBottomData" load_steps=2 format=3 uid="uid://c48t0bvvr0pq"]
+
+[ext_resource type="Script" uid="uid://dk1owc5v1a6p7" path="res://resources/items/FFOutfitBottomData.gd" id="1_nltik"]
+
+[resource]
+script = ExtResource("1_nltik")
+gender = "female"
+item_id = "1"
+item_name = "denim"
+slot = "outfit_bottom"
+metadata/_custom_type_script = "uid://cfv7ehjydnapu"

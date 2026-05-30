@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="FFItemData" load_steps=2 format=3 uid="uid://d2xiht2q6m5r"]
+[gd_resource type="Resource" script_class="FFBackData" load_steps=2 format=3 uid="uid://d2xiht2q6m5r"]
 
-[ext_resource type="Script" uid="uid://c7il1gd1x26ri" path="res://resources/items/FFItemData.gd" id="1_duku0"]
+[ext_resource type="Script" uid="uid://cu8wb8uki0mjv" path="res://resources/items/FFBackData.gd" id="1_duku0"]
 
 [resource]
 script = ExtResource("1_duku0")
-item_id = "backm"
-item_name = "Unknown"
-slot = ""
+meshes = Array[Mesh]([null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
+item_id = "backMOCK"
+item_name = "spider"
+slot = "back"
 metadata/_custom_type_script = "uid://cfv7ehjydnapu"

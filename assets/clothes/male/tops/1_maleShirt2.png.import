@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://r8vyly05ee8a"
-path.s3tc="res://.godot/imported/both_femaleskin.png-c8c45e284bd8ebe09387315a8c455708.s3tc.ctex"
+uid="uid://cq1i4kaa45hlx"
+path.s3tc="res://.godot/imported/1_maleShirt2.png-de9bcbbf78db6d415c9600916935fcb9.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "f521a2b612ddee6be2b89eab988f9567"
+"md5": "83e48237be461cc4127345933d67b982"
 }
 
 [deps]
 
-source_file="res://assets/models/both_femaleskin.png"
-dest_files=["res://.godot/imported/both_femaleskin.png-c8c45e284bd8ebe09387315a8c455708.s3tc.ctex"]
+source_file="res://assets/clothes/male/tops/1_maleShirt2.png"
+dest_files=["res://.godot/imported/1_maleShirt2.png-de9bcbbf78db6d415c9600916935fcb9.s3tc.ctex"]
 
 [params]
 

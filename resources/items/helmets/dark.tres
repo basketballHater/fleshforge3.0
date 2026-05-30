@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource("1_wel2t")
+meshes = Array[Mesh]([null, null])
 item_id = "helmet2MOCK"
 item_name = "Common"
 slot = "helmet"

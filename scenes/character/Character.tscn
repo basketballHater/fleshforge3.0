@@ -4,6 +4,3 @@
 
 [node name="Character" type="CharacterBody3D"]
 script = ExtResource("1_m23li")
-
-[node name="PreviewCamera" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.977453, 0.211154, 0, -0.211154, 0.977453, 0.0731368, 2.74615, 10.8269)

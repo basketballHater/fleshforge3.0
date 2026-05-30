@@ -3,11 +3,14 @@
 # shows item info, applies changes to live preview, saves on confirm.
 extends Node
 
-const ITEM_FOLDERS := {
+var ITEM_FOLDERS := {
 	"helmet":  "res://resources/items/helmets/",
 	"weapons": "res://resources/items/weapons/",
 	"legs":    "res://resources/items/legs/",
 	"back":    "res://resources/items/back/",
+	"armour":    "res://resources/items/armour/",
+	"outfit_top":    "res://resources/items/outfits/tops/%s/" % [PlayerData.gender],
+	"outfit_bottom": "res://resources/items/outfits/bottoms/%s/" % [PlayerData.gender],
 }
 
 # Tracks the currently selected item per slot
@@ -16,47 +19,85 @@ var _selected: Dictionary = {
 	"weapons": null,
 	"legs":    null,
 	"back":    null,
+	"armour":    null,
+	"outfit_top":    null,
+	"outfit_bottom": null,
 }
 
-@onready var character:     Character    = $SubViewportContainer/SubViewport/Character
-@onready var tab_container: TabContainer = $UI/TabContainer
-@onready var name_label:    Label        = $UI/ItemInfoPanel/ItemNameLabel
-@onready var class_label:   Label        = $UI/ItemInfoPanel/ItemClassLabel
-@onready var btn_save:      Button       = $UI/BtnSave
-@onready var btn_back:      Button       = $UI/BtnBack
+@onready var character:     Character    = $UI/Viewport/Character
+
+@onready var preview_camera:     Camera3D    = $UI/Viewport/SubViewportContainer/SubViewport/Camera3D
+var _orbit_active:   bool    = false
+var _orbit_last_pos: Vector2 = Vector2.ZERO
+var _orbit_yaw:      float   = 0.0
+const ORBIT_SPEED:   float   = 0.4
+
+@onready var item_container: TabContainer = $UI/Interface/HBoxContainer
+@onready var name_label:    Label        = $UI/Interface/ItemInfoPanel/ItemNameLabel
+@onready var class_label:   Label        = $UI/Interface/ItemInfoPanel/ItemClassLabel
+@onready var btn_save:      Button       = $UI/Interface/BtnSave
+@onready var btn_back:      Button       = $UI/Interface/BtnBack
 
 func _ready() -> void:
 	character.apply_from_player_data()
-	character.enable_preview_camera(true)
+	#character.enable_preview_camera(true)
+	#camera.current = true
 
 	# Pre-select from saved data
 	_selected["helmet"]  = _load_item(PlayerData.helmet_path)
 	_selected["weapons"] = _load_item(PlayerData.weapon_path)
 	_selected["legs"]    = _load_item(PlayerData.legs_path)
 	_selected["back"]    = _load_item(PlayerData.back_path)
+	_selected["armour"]    = _load_item(PlayerData.back_path)
+	_selected["outfit_top"] = _load_item(PlayerData.outfit_top_path)
+	_selected["outfit_bottom"] = _load_item(PlayerData.outfit_bottom_path)
 
 	# Populate each tab — order must match TabContainer child order
-	var slots: Array[String] = ["helmet", "legs", "weapons", "back"]
+	#var slots: Array[String] = ["helmet", "legs", "weapons", "back"]
+	#for i in range(slots.size()):
+		#var slot := slots[i]
+		#var items := _load_items_for_slot(slot)
+		#var tab_root: Control = tab_container.get_child(i)
+		#if tab_root != null:
+			#_populate_tab(tab_root, slot, items)
+		#else:
+			#push_warning("Customization: no tab found at index %d for slot '%s'" % [i, slot])
+	var slots: Array[String] = ["helmet", "legs", "weapons", "back", "armour", "outfit_top", "outfit_bottom"]
 	for i in range(slots.size()):
 		var slot := slots[i]
 		var items := _load_items_for_slot(slot)
-		var tab_root: Control = tab_container.get_child(i)
-		if tab_root != null:
-			_populate_tab(tab_root, slot, items)
-		else:
-			push_warning("Customization: no tab found at index %d for slot '%s'" % [i, slot])
+		var slot_root: Control = item_container.get_child(i)
+		if slot_root != null:
+			_populate_tab(slot_root, slot, items)
+	for child in item_container.get_children():
+		child.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 
 	btn_save.pressed.connect(_on_save)
 	btn_back.pressed.connect(_on_back)
 	
 	character.animation.animation_finished.connect(_on_animation_finished)
-
+	character.animation.play("startCont")
 # ── Load all .tres files from a folder ───────────────────────────────────────
+
+func _input(event: InputEvent) -> void:
+	if not preview_camera or not preview_camera.current:
+		return
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			_orbit_active   = event.pressed
+			_orbit_last_pos = event.position
+	elif event is InputEventMouseMotion and _orbit_active:
+		var delta: float = event.position.x - _orbit_last_pos.x
+		_orbit_yaw      += delta * ORBIT_SPEED
+		# Rotate the GLB model, not the Character root
+		# so camera and UI are unaffected
+		character.rotation_degrees = Vector3(0, _orbit_yaw, 0)
+		_orbit_last_pos  = event.position
 
 func _load_items_for_slot(slot: String) -> Array[FFItemData]:
 	var results: Array[FFItemData] = []
 	var folder: String = ITEM_FOLDERS.get(slot, "")
-	
+	print("LESBOO",folder,"SLOT",slot)
 	if folder == "":
 		push_warning("Customization: no folder mapped for slot '%s'" % slot)
 		return results
@@ -87,6 +128,7 @@ func _populate_tab(tab_root: Control, slot: String, items: Array[FFItemData]) ->
 		return
 
 	for item in items:
+		print("GAYY",item)
 		var btn := Button.new()
 		btn.text = item.item_name
 		btn.pressed.connect(_on_item_selected.bind(slot, item))
@@ -147,6 +189,7 @@ func _load_meshes_into_item(item: FFItemData) -> void:
 
 
 	var glb_path : String = item.get_glb_path();	
+	print(glb_path)
 	if not ResourceLoader.exists(glb_path):
 		push_warning("Customization: no GLB found at %s" % glb_path)
 		return
@@ -176,6 +219,12 @@ func _apply_to_character(slot: String, item: FFItemData) -> void:
 			character.apply_legs(item as FFLegData)
 		"back":
 			character.apply_back(item as FFBackData)
+		"armour":
+			character.apply_armour(item as FFArmourData)
+		"outfit_top":
+			character.apply_outfit_top(item as FFOutfitTopData)
+		"outfit_bottom":
+			character.apply_outfit_bottom(item as FFOutfitBottomData)
 
 func _clear_slot(slot: String) -> void:
 	match slot:
@@ -183,6 +232,9 @@ func _clear_slot(slot: String) -> void:
 		"weapons": character.apply_weapon(null)
 		"legs":    character.apply_legs(null)
 		"back":    character.apply_back(null)
+		"armour":    character.apply_armour(null)
+		"outfit_top":    character.apply_outfit_top(null)
+		"outfit_bottom": character.apply_outfit_bottom(null)
 
 # ── Info panel ────────────────────────────────────────────────────────────────
 
@@ -201,9 +253,12 @@ func _clear_info_panel() -> void:
 
 func _on_save() -> void:
 	PlayerData.helmet_path   = _path_of(_selected["helmet"])
-	PlayerData.weapon_r_path = _path_of(_selected["weapons"])
+	PlayerData.weapon_path = _path_of(_selected["weapons"])
 	PlayerData.legs_path     = _path_of(_selected["legs"])
 	PlayerData.back_path     = _path_of(_selected["back"])
+	PlayerData.armour_path     = _path_of(_selected["armour"])
+	PlayerData.outfit_top_path    = _path_of(_selected["outfit_top"])
+	PlayerData.outfit_bottom_path = _path_of(_selected["outfit_bottom"])
 	SaveManager.save_data()
 	print("Customization: saved")
 	get_tree().change_scene_to_file("res://scenes/menus/MainMenu.tscn")
