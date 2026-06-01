@@ -9,8 +9,8 @@ var ITEM_FOLDERS := {
 	"legs":    "res://resources/items/legs/",
 	"back":    "res://resources/items/back/",
 	"armour":    "res://resources/items/armour/",
-	"outfit_top":    "res://resources/items/outfits/tops/%s/" % [PlayerData.gender],
-	"outfit_bottom": "res://resources/items/outfits/bottoms/%s/" % [PlayerData.gender],
+	"top":    "res://resources/items/outfits/tops/%s/" % [PlayerData.gender],
+	"bottom": "res://resources/items/outfits/bottoms/%s/" % [PlayerData.gender],
 }
 
 # Tracks the currently selected item per slot
@@ -20,23 +20,35 @@ var _selected: Dictionary = {
 	"legs":    null,
 	"back":    null,
 	"armour":    null,
-	"outfit_top":    null,
-	"outfit_bottom": null,
+	"top":    null,
+	"bottom": null,
 }
 
-@onready var character:     Character    = $UI/Viewport/Character
+@onready var character:     Character    = $Viewport/Character
 
-@onready var preview_camera:     Camera3D    = $UI/Viewport/SubViewportContainer/SubViewport/Camera3D
+@onready var preview_camera:     Camera3D    = $Viewport/SubViewportContainer/SubViewport/Camera3D
 var _orbit_active:   bool    = false
 var _orbit_last_pos: Vector2 = Vector2.ZERO
 var _orbit_yaw:      float   = 0.0
 const ORBIT_SPEED:   float   = 0.4
 
-@onready var item_container: TabContainer = $UI/Interface/HBoxContainer
+@onready var tab_container: TabContainer = $UI/Interface/HBoxContainer/VBoxContainer2/NinePatchRect2/HBoxContainer/VBoxContainer/TabContainer
+@onready var panel_container: PanelContainer = $UI/Interface/HBoxContainer/VBoxContainer2/PanelContainer
+
+@onready var augments: Button = $UI/Interface/HBoxContainer/NinePatchRect/VBoxContainer/Augments
+@onready var outfits: Button = $UI/Interface/HBoxContainer/NinePatchRect/VBoxContainer/Outfits
+
 @onready var name_label:    Label        = $UI/Interface/ItemInfoPanel/ItemNameLabel
 @onready var class_label:   Label        = $UI/Interface/ItemInfoPanel/ItemClassLabel
 @onready var btn_save:      Button       = $UI/Interface/BtnSave
 @onready var btn_back:      Button       = $UI/Interface/BtnBack
+
+var equipment_slots = ["helmet", "weapons", "legs", "back", "armour"]
+var outfit_slots    = ["top", "bottom"]
+@onready var _outfit_panels:    Array = []
+@onready var _equipment_panels: Array = []
+
+@onready var content_area: PanelContainer = $UI/Interface/HBoxContainer/PanelContainer
 
 func _ready() -> void:
 	character.apply_from_player_data()
@@ -45,12 +57,12 @@ func _ready() -> void:
 
 	# Pre-select from saved data
 	_selected["helmet"]  = _load_item(PlayerData.helmet_path)
-	_selected["weapons"] = _load_item(PlayerData.weapon_path)
+	_selected["weapons"] = _load_item(PlayerData.weapons_path)
 	_selected["legs"]    = _load_item(PlayerData.legs_path)
 	_selected["back"]    = _load_item(PlayerData.back_path)
 	_selected["armour"]    = _load_item(PlayerData.back_path)
-	_selected["outfit_top"] = _load_item(PlayerData.outfit_top_path)
-	_selected["outfit_bottom"] = _load_item(PlayerData.outfit_bottom_path)
+	_selected["top"] = _load_item(PlayerData.top_path)
+	_selected["bottom"] = _load_item(PlayerData.bottom_path)
 
 	# Populate each tab — order must match TabContainer child order
 	#var slots: Array[String] = ["helmet", "legs", "weapons", "back"]
@@ -62,15 +74,22 @@ func _ready() -> void:
 			#_populate_tab(tab_root, slot, items)
 		#else:
 			#push_warning("Customization: no tab found at index %d for slot '%s'" % [i, slot])
+			
+	#var augments: Array[String] = ["helmet", "legs", "weapons", "back", "armour"]
+	#var outfits: Array[String] = ["outfit_top", "outfit_bottom"]
+
 	var slots: Array[String] = ["helmet", "legs", "weapons", "back", "armour", "outfit_top", "outfit_bottom"]
-	for i in range(slots.size()):
-		var slot := slots[i]
-		var items := _load_items_for_slot(slot)
-		var slot_root: Control = item_container.get_child(i)
-		if slot_root != null:
-			_populate_tab(slot_root, slot, items)
-	for child in item_container.get_children():
-		child.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	#FAHHHHHH
+	#for i in range(slots.size()):
+		#var slot := slots[i]
+		#var items := _load_items_for_slot(slot)
+		#var slot_root: Control = tab_container.get_child(i)
+		#if slot_root != null:
+			#_populate_tab(slot_root, slot, items)
+	#for child in tab_container.get_children():
+		#child.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	augments.pressed.connect(display_gear.bind(equipment_slots))
+	outfits.pressed.connect(display_gear.bind(outfit_slots))
 
 	btn_save.pressed.connect(_on_save)
 	btn_back.pressed.connect(_on_back)
@@ -79,6 +98,22 @@ func _ready() -> void:
 	character.animation.play("startCont")
 # ── Load all .tres files from a folder ───────────────────────────────────────
 
+func display_gear(slots: Array) -> void:
+	clear_container(tab_container)
+	
+	for slot in slots:
+		var list := GridContainer.new()
+		list.columns = 3
+		list.name = slot.to_upper()
+		tab_container.add_child(list)
+		
+		var items := _load_items_for_slot(slot)
+		_populate_tab_F(list, slot, items)
+
+func clear_container(node: Node) -> void:
+	for child in node.get_children():
+		child.free()
+	
 func _input(event: InputEvent) -> void:
 	if not preview_camera or not preview_camera.current:
 		return
@@ -133,6 +168,14 @@ func _populate_tab(tab_root: Control, slot: String, items: Array[FFItemData]) ->
 		btn.text = item.item_name
 		btn.pressed.connect(_on_item_selected.bind(slot, item))
 		list.add_child(btn)
+
+func _populate_tab_F(tab_root: Control, slot: String, items: Array[FFItemData]) -> void:
+	for item in items:
+		var btn := Button.new()
+		btn.custom_minimum_size = Vector2(200, 200)
+		btn.text = item.item_name
+		btn.pressed.connect(_on_item_selected.bind(slot, item))
+		tab_root.add_child(btn)
 
 # ── Item selected ─────────────────────────────────────────────────────────────
 
@@ -221,10 +264,10 @@ func _apply_to_character(slot: String, item: FFItemData) -> void:
 			character.apply_back(item as FFBackData)
 		"armour":
 			character.apply_armour(item as FFArmourData)
-		"outfit_top":
-			character.apply_outfit_top(item as FFOutfitTopData)
-		"outfit_bottom":
-			character.apply_outfit_bottom(item as FFOutfitBottomData)
+		"top":
+			character.apply_top(item as FFOutfitTopData)
+		"bottom":
+			character.apply_bottom(item as FFOutfitBottomData)
 
 func _clear_slot(slot: String) -> void:
 	match slot:
@@ -233,8 +276,8 @@ func _clear_slot(slot: String) -> void:
 		"legs":    character.apply_legs(null)
 		"back":    character.apply_back(null)
 		"armour":    character.apply_armour(null)
-		"outfit_top":    character.apply_outfit_top(null)
-		"outfit_bottom": character.apply_outfit_bottom(null)
+		"top":    character.apply_top(null)
+		"bottom": character.apply_bottom(null)
 
 # ── Info panel ────────────────────────────────────────────────────────────────
 
@@ -253,12 +296,12 @@ func _clear_info_panel() -> void:
 
 func _on_save() -> void:
 	PlayerData.helmet_path   = _path_of(_selected["helmet"])
-	PlayerData.weapon_path = _path_of(_selected["weapons"])
+	PlayerData.weapons_path = _path_of(_selected["weapons"])
 	PlayerData.legs_path     = _path_of(_selected["legs"])
 	PlayerData.back_path     = _path_of(_selected["back"])
 	PlayerData.armour_path     = _path_of(_selected["armour"])
-	PlayerData.outfit_top_path    = _path_of(_selected["outfit_top"])
-	PlayerData.outfit_bottom_path = _path_of(_selected["outfit_bottom"])
+	PlayerData.top_path    = _path_of(_selected["top"])
+	PlayerData.bottom_path = _path_of(_selected["bottom"])
 	SaveManager.save_data()
 	print("Customization: saved")
 	get_tree().change_scene_to_file("res://scenes/menus/MainMenu.tscn")

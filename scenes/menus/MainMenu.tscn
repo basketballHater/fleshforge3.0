@@ -791,6 +791,7 @@ layout_mode = 2
 [node name="BtnCustomize" type="Button" parent="UI/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer3"]
 custom_minimum_size = Vector2(567, 110)
 layout_mode = 2
+focus_mode = 0
 theme_override_colors/icon_hover_color = Color(1, 1, 1, 1)
 theme_override_colors/font_color = Color(0.501961, 0.415686, 0.313726, 1)
 theme_override_colors/font_pressed_color = Color(0.999921, 0.486173, 0.418686, 1)
@@ -808,6 +809,7 @@ layout_mode = 2
 [node name="BtnQuit" type="Button" parent="UI/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer4"]
 custom_minimum_size = Vector2(567, 110)
 layout_mode = 2
+focus_mode = 0
 theme_override_colors/icon_hover_color = Color(1, 1, 1, 1)
 theme_override_colors/font_color = Color(0.501961, 0.415686, 0.313726, 1)
 theme_override_colors/font_pressed_color = Color(0.999921, 0.486173, 0.418686, 1)

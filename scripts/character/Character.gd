@@ -55,8 +55,8 @@ var _slot_back:   Array[MeshInstance3D] = []
 var _slot_armour_r: Array[MeshInstance3D] = []
 var _slot_armour_l: Array[MeshInstance3D] = []
 # ── Outfit slots (dynamically loaded and rebound) ────────────────────────────
-var _outfit_top_node:    MeshInstance3D = null
-var _outfit_bottom_node: MeshInstance3D = null
+var _top_node:    MeshInstance3D = null
+var _bottom_node: MeshInstance3D = null
 
 # Pending async loads — track separately so both can load simultaneously
 var _pending_top_path:    String = ""
@@ -149,18 +149,18 @@ func apply_skin(skin_id: String) -> void:
 
 # ── Outfit ────────────────────────────────────────────────────────────────────
 
-func apply_outfit_top(item: FFOutfitTopData) -> void:
+func apply_top(item: FFOutfitTopData) -> void:
 	if item == null:
-		_free_outfit_node(_outfit_top_node)
-		_outfit_top_node = null
+		_free_outfit_node(_top_node)
+		_top_node = null
 		return
 	var path :String= item.get_glb_path()
 	_load_outfit_async(path, true)
 
-func apply_outfit_bottom(item: FFOutfitBottomData) -> void:
+func apply_bottom(item: FFOutfitBottomData) -> void:
 	if item == null:
-		_free_outfit_node(_outfit_bottom_node)
-		_outfit_bottom_node = null
+		_free_outfit_node(_bottom_node)
+		_bottom_node = null
 		return
 	var path :String= item.get_glb_path()
 	_load_outfit_async(path, false)
@@ -227,12 +227,12 @@ func _apply_packed_outfit(packed: PackedScene, is_top: bool) -> void:
 
 	# Free the old outfit piece and replace it
 	if is_top:
-		_free_outfit_node(_outfit_top_node)
-		_outfit_top_node = new_instance
+		_free_outfit_node(_top_node)
+		_top_node = new_instance
 		print("Character: outfit top applied")
 	else:
-		_free_outfit_node(_outfit_bottom_node)
-		_outfit_bottom_node = new_instance
+		_free_outfit_node(_bottom_node)
+		_bottom_node = new_instance
 		print("Character: outfit bottom applied")
 
 func _free_outfit_node(node: MeshInstance3D) -> void:
@@ -272,12 +272,12 @@ func apply_from_player_data() -> void:
 	apply_gender(PlayerData.gender)
 	apply_skin(PlayerData.skin_id)
 	_load_and_apply_helmet(PlayerData.helmet_path)
-	_load_and_apply_weapon(PlayerData.weapon_path)
+	_load_and_apply_weapon(PlayerData.weapons_path)
 	_load_and_apply_legs(PlayerData.legs_path)
 	_load_and_apply_back(PlayerData.back_path)
-	_load_and_apply_back(PlayerData.armour_path)
-	_load_and_apply_outfit_top(PlayerData.outfit_top_path)
-	_load_and_apply_outfit_bottom(PlayerData.outfit_bottom_path)
+	_load_and_apply_armour(PlayerData.armour_path)
+	_load_and_apply_top(PlayerData.top_path)
+	_load_and_apply_bottom(PlayerData.bottom_path)
 
 func enable_preview_camera(enabled: bool) -> void:
 	if preview_camera:
@@ -409,13 +409,13 @@ func _load_and_apply_armour(path: String) -> void:
 	_load_meshes_into_item(item)  # <- add
 	apply_armour(item)
 
-func _load_and_apply_outfit_top(path: String) -> void:
-	if path == "": apply_outfit_top(null); return
-	apply_outfit_top(load(path) as FFOutfitTopData)
+func _load_and_apply_top(path: String) -> void:
+	if path == "": apply_top(null); return
+	apply_top(load(path) as FFOutfitTopData)
 
-func _load_and_apply_outfit_bottom(path: String) -> void:
-	if path == "": apply_outfit_bottom(null); return
-	apply_outfit_bottom(load(path) as FFOutfitBottomData)
+func _load_and_apply_bottom(path: String) -> void:
+	if path == "": apply_bottom(null); return
+	apply_bottom(load(path) as FFOutfitBottomData)
 
 func _load_meshes_into_item(item: FFItemData) -> void:
 	if item == null or not "meshes" in item:
