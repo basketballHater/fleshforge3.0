@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="AttackData" load_steps=2 format=3 uid="uid://b8dq7aeys6qdq"]
+
+[ext_resource type="Script" uid="uid://chotp76denwcv" path="res://resources/attacks/AttackData.gd" id="1_pxjd3"]
+
+[resource]
+script = ExtResource("1_pxjd3")
+attackID = 1
+description = "Ground Bash"
+is_unlocked = false
+attack_class = 1
+knockback = 5.0
+is_launcher = true
+speedAdd = 0
+hop = 0
+range = Array[float]([1.5])
+input = 64
+nextCombo = {}
+chainFrame = 0
+attackStart = Array[int]([6])
+attackEnd = Array[int]([9])
+attackLimb = Array[int]([1])
+attackType = Array[int]([0])
+is_special = false
+preliminary_input = 0
+animation_name = "hammer_1_2"
+impactFrames = Array[int]([10])
+totalFrames = 20
+item_id = "0000_2"
+item_name = "Unknown"
+slot = 8
+metadata/_custom_type_script = "uid://chotp76denwcv"

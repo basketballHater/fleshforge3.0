@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="AttackData" load_steps=2 format=3 uid="uid://bbrx5uf7raxoe"]
+
+[ext_resource type="Script" uid="uid://chotp76denwcv" path="res://resources/attacks/AttackData.gd" id="1_q0ie3"]
+
+[resource]
+script = ExtResource("1_q0ie3")
+description = "Stinger slash to the head"
+is_unlocked = false
+attack_class = 9
+knockback = 10.0
+is_launcher = false
+speedAdd = 0
+range = Array[float]([0.5])
+input = 24
+nextCombo = {}
+chainFrame = 0
+attackStart = Array[int]([8])
+attackEnd = Array[int]([11])
+attackLimb = Array[int]([4])
+attackType = Array[int]([0])
+is_special = false
+preliminary_input = 0
+animation_name = "arachnid_backward_1"
+impactFrames = Array[int]([10])
+totalFrames = 20
+item_id = "0000"
+item_name = "Stinger Strike"
+slot = 7
+metadata/_custom_type_script = "uid://chotp76denwcv"

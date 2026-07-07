@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="AttackData" load_steps=2 format=3 uid="uid://itkevl7klfjl"]
+
+[ext_resource type="Script" uid="uid://chotp76denwcv" path="res://resources/attacks/AttackData.gd" id="1_uko0n"]
+
+[resource]
+script = ExtResource("1_uko0n")
+description = "Crawl Back"
+is_unlocked = false
+attack_class = 9
+knockback = 0.0
+is_launcher = false
+speedAdd = -12
+range = Array[float]([0.5])
+input = 136
+nextCombo = {}
+chainFrame = 0
+attackStart = Array[int]([])
+attackEnd = Array[int]([])
+attackLimb = Array[int]([])
+attackType = Array[int]([0])
+is_special = false
+preliminary_input = 0
+animation_name = "arachnid_backward_4"
+impactFrames = Array[int]([])
+totalFrames = 20
+item_id = "0004"
+item_name = "Unknown"
+slot = 7
+metadata/_custom_type_script = "uid://chotp76denwcv"

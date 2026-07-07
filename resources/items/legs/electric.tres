@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="FFLegData" load_steps=2 format=3 uid="uid://cm8cnuwl8f0u1"]
+
+[ext_resource type="Script" uid="uid://s6k4gr3m5vum" path="res://resources/items/FFLegData.gd" id="1_88n8w"]
+
+[resource]
+script = ExtResource("1_88n8w")
+leg_class = 1
+speed = 8.0
+meshes = Array[Mesh]([null, null, null, null])
+item_id = "electricWheels"
+item_name = "Electric Wheels"
+slot = 4
+metadata/_custom_type_script = "uid://s6k4gr3m5vum"

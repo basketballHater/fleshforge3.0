@@ -7,5 +7,5 @@ script = ExtResource("1_nltik")
 gender = "female"
 item_id = "1"
 item_name = "denim"
-slot = "outfit_bottom"
+slot = 6
 metadata/_custom_type_script = "uid://cfv7ehjydnapu"

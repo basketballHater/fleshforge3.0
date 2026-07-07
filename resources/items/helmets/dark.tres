@@ -8,6 +8,6 @@ script = ExtResource("1_wel2t")
 meshes = Array[Mesh]([null, null])
 item_id = "helmet2MOCK"
 item_name = "Common"
-slot = "helmet"
+slot = 1
 thumbnail = ExtResource("2_gmhhr")
 metadata/_custom_type_script = "uid://bk86t2i1x1q4u"

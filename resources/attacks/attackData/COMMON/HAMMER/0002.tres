@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="AttackData" load_steps=2 format=3 uid="uid://b5l8war4cenu0"]
+
+[ext_resource type="Script" uid="uid://chotp76denwcv" path="res://resources/attacks/AttackData.gd" id="1_n0v6n"]
+
+[resource]
+script = ExtResource("1_n0v6n")
+description = "Dash punch with weapon pommel"
+is_unlocked = false
+attack_class = 1
+hitstun_frames = 14
+blockstun_frames = 8
+knockback = 5.0
+is_launcher = false
+animation_fps = 30.0
+speedAdd = 12
+range = Array[float]([0.8])
+input = 20
+nextCombo = {}
+chainFrame = 0
+startupFrames = 13
+attackStart = Array[int]([11])
+attackEnd = Array[int]([14])
+attackLimb = Array[int]([1])
+recoveryFrames = 6
+required_stance = "any"
+required_meter = 0.0
+animation_name = "hammer_forward_1"
+impactFrames = Array[int]([14])
+totalFrames = 20
+item_id = "0002"
+item_name = "Boulder  Rush"
+slot = 7
+metadata/_custom_type_script = "uid://chotp76denwcv"

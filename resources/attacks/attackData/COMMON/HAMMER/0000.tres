@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="AttackData" load_steps=3 format=3 uid="uid://cer34305fxn3u"]
+
+[ext_resource type="Resource" uid="uid://caukcpuh81fcg" path="res://resources/attacks/attackData/COMBO/HAMMER/0000_1.tres" id="1_ddrfo"]
+[ext_resource type="Script" uid="uid://chotp76denwcv" path="res://resources/attacks/AttackData.gd" id="1_ej8gb"]
+
+[resource]
+script = ExtResource("1_ej8gb")
+description = "One-arm vertical club"
+is_unlocked = false
+attack_class = 1
+knockback = 3.0
+is_launcher = false
+speedAdd = 0
+range = Array[float]([1.5])
+input = 16
+nextCombo = {
+32: ExtResource("1_ddrfo")
+}
+chainFrame = 13
+attackStart = Array[int]([11])
+attackEnd = Array[int]([13])
+attackLimb = Array[int]([0])
+attackType = Array[int]([0])
+is_special = false
+preliminary_input = 0
+animation_name = "hammer_1"
+impactFrames = Array[int]([12])
+totalFrames = 20
+item_id = "0000"
+item_name = "Body Bash"
+slot = 7
+metadata/_custom_type_script = "uid://chotp76denwcv"

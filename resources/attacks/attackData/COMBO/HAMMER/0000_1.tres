@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="AttackData" load_steps=3 format=3 uid="uid://caukcpuh81fcg"]
+
+[ext_resource type="Resource" uid="uid://b8dq7aeys6qdq" path="res://resources/attacks/attackData/COMBO/HAMMER/0000_2.tres" id="1_g7fsi"]
+[ext_resource type="Script" uid="uid://chotp76denwcv" path="res://resources/attacks/AttackData.gd" id="1_q7ci0"]
+
+[resource]
+script = ExtResource("1_q7ci0")
+attackID = 0
+description = "Knee to the face"
+is_unlocked = false
+attack_class = 1
+knockback = 10.0
+is_launcher = false
+speedAdd = 8
+hop = 0
+range = Array[float]([1.5])
+input = 32
+nextCombo = {
+64: ExtResource("1_g7fsi")
+}
+chainFrame = 10
+attackStart = Array[int]([6])
+attackEnd = Array[int]([10])
+attackLimb = Array[int]([9])
+attackType = Array[int]([0])
+is_special = false
+preliminary_input = 0
+animation_name = "hammer_1_1"
+impactFrames = Array[int]([8])
+totalFrames = 25
+item_id = "0000_1"
+item_name = "Unknown"
+slot = 8
+metadata/_custom_type_script = "uid://chotp76denwcv"

@@ -17,4 +17,4 @@ func get_class_label() -> String:
 
 func get_glb_path() -> String:
 	var wClass = WeaponClass.keys()[weapon_class]
-	return "res://assets/%s/%s/%s.glb" % [slot, wClass, item_id]
+	return "res://assets/%s/%s/%s.glb" % [FFItemData.itemClass.keys()[slot], wClass, item_id]

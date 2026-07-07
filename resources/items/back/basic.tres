@@ -7,5 +7,5 @@ script = ExtResource("1_duku0")
 meshes = Array[Mesh]([null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
 item_id = "backMOCK"
 item_name = "spider"
-slot = "back"
+slot = 3
 metadata/_custom_type_script = "uid://cfv7ehjydnapu"

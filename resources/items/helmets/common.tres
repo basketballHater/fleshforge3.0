@@ -5,8 +5,9 @@
 
 [resource]
 script = ExtResource("1_uouyt")
+meshes = Array[Mesh]([null, null])
 item_id = "helmet1MOCK"
 item_name = "Common"
-slot = "helmet"
+slot = 1
 thumbnail = ExtResource("2_uouyt")
 metadata/_custom_type_script = "uid://bk86t2i1x1q4u"

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="FFWeaponData" load_steps=2 format=3 uid="uid://owxxkguwh625"]
+
+[ext_resource type="Script" uid="uid://dj55eu2yv4q46" path="res://resources/items/FFWeaponData.gd" id="1_218pp"]
+
+[resource]
+script = ExtResource("1_218pp")
+meshes = Array[Mesh]([null, null, null])
+weapon_class = 0
+animation_set = "slasher_default"
+cosmetic_variant_of = ""
+item_id = "slashEmber"
+item_name = "Slash Ember"
+slot = "weapon"
+metadata/_custom_type_script = "uid://dvw87nrlpeath"

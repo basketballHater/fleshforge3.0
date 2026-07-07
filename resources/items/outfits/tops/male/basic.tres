@@ -7,5 +7,5 @@ script = ExtResource("1_rin85")
 gender = "male"
 item_id = "1"
 item_name = "spider"
-slot = "outfit_top"
+slot = 5
 metadata/_custom_type_script = "uid://cfv7ehjydnapu"

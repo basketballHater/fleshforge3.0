@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="FFLegData" load_steps=2 format=3 uid="uid://ub6yowvy40ya"]
+
+[ext_resource type="Script" uid="uid://s6k4gr3m5vum" path="res://resources/items/FFLegData.gd" id="1_hrmde"]
+
+[resource]
+script = ExtResource("1_hrmde")
+leg_class = 0
+speed = 8.0
+meshes = Array[Mesh]([null, null, null, null])
+item_id = "cyberWheels"
+item_name = "Cyber Wheels"
+slot = 4
+metadata/_custom_type_script = "uid://s6k4gr3m5vum"

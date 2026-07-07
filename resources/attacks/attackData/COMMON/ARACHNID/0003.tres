@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="AttackData" load_steps=2 format=3 uid="uid://ch6i5ewbvxs2x"]
+
+[ext_resource type="Script" uid="uid://chotp76denwcv" path="res://resources/attacks/AttackData.gd" id="1_1r8mo"]
+
+[resource]
+script = ExtResource("1_1r8mo")
+description = "Stinger that sends you flying"
+is_unlocked = false
+attack_class = 9
+knockback = 20.0
+is_launcher = true
+speedAdd = 0
+range = Array[float]([0.5])
+input = 34
+nextCombo = {}
+chainFrame = 0
+attackStart = Array[int]([1])
+attackEnd = Array[int]([5])
+attackLimb = Array[int]([4])
+attackType = Array[int]([0])
+is_special = false
+preliminary_input = 0
+animation_name = "arachnid_crouch_1"
+impactFrames = Array[int]([5])
+totalFrames = 10
+item_id = "0003"
+item_name = "Sky Uppercut"
+slot = 7
+metadata/_custom_type_script = "uid://chotp76denwcv"

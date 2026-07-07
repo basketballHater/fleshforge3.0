@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="FFBackData" load_steps=2 format=3 uid="uid://dhvs584ujmmr7"]
+
+[ext_resource type="Script" uid="uid://cu8wb8uki0mjv" path="res://resources/items/FFBackData.gd" id="1_r2p40"]
+
+[resource]
+script = ExtResource("1_r2p40")
+meshes = Array[Mesh]([null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
+item_id = "turret1"
+item_name = "Giga Cannons"
+slot = 3
+metadata/_custom_type_script = "uid://cfv7ehjydnapu"

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="FFBackData" load_steps=2 format=3 uid="uid://bg3r881x60ubq"]
+
+[ext_resource type="Script" uid="uid://cu8wb8uki0mjv" path="res://resources/items/FFBackData.gd" id="1_p1at2"]
+
+[resource]
+script = ExtResource("1_p1at2")
+meshes = Array[Mesh]([null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
+item_id = "spiderMech"
+item_name = "Mech Spider"
+slot = 3

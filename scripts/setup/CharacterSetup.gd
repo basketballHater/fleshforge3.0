@@ -16,17 +16,20 @@ const FEMALE_SWATCHES := [
 ]
 
 # ── Node references ──────────────────────────────────────────────────────────
-@onready var character:   Character = $SubViewportContainer/SubViewport/Character
+@onready var character:   Character = $Character
 @onready var btn_male:    Button    = $UI/GenderPanel/BtnMale
 @onready var btn_female:  Button    = $UI/GenderPanel/BtnFemale
 @onready var skin_panel:  HBoxContainer = $UI/SkinPanel
 @onready var btn_confirm: Button    = $UI/BtnConfirm
 
+@onready var characterData = GameState.get_active_data()
+
+
 func _ready() -> void:
 	# Apply any existing defaults for preview
-	character.apply_gender(PlayerData.gender)
-	character.apply_skin(PlayerData.skin_id)
-	character.enable_preview_camera(true)
+	character.apply_gender(characterData.gender)
+	character.apply_skin(characterData.skin_id)
+	#character.enable_preview_camera(true)
 
 	# Wire gender buttons
 	btn_male.pressed.connect(_on_gender_selected.bind("male"))
@@ -61,18 +64,15 @@ func _build_skin_swatches(gender: String) -> void:
 func _on_gender_selected(gender: String) -> void:
 	for child in skin_panel.get_children():
 		child.queue_free()
-	
-	PlayerData.gender = gender
-	character.apply_gender(gender)
-	
+	character._on_gender_selected(gender)
 	_build_skin_swatches(gender)
 
 func _on_skin_selected(skin_id: String) -> void:
-	PlayerData.skin_id = skin_id
+	characterData.skin_id = skin_id
 	print(skin_id)
 	character.apply_skin(skin_id)
 
 func _on_confirm() -> void:
-	PlayerData.is_first_launch = false
+	characterData.is_first_launch = false
 	SaveManager.save_data()
 	get_tree().change_scene_to_file("res://scenes/menus/MainMenu.tscn")

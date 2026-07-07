@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="AttackData" load_steps=2 format=3 uid="uid://da88g1onfwcnd"]
+
+[ext_resource type="Script" uid="uid://chotp76denwcv" path="res://resources/attacks/AttackData.gd" id="1_ha1p3"]
+
+[resource]
+script = ExtResource("1_ha1p3")
+attackID = 0
+description = ""
+is_unlocked = false
+attack_class = 9
+knockback = 20.0
+is_launcher = false
+speedAdd = 0
+hop = 0
+range = Array[float]([0.5])
+input = 36
+nextCombo = {}
+chainFrame = 0
+attackStart = Array[int]([])
+attackEnd = Array[int]([])
+attackLimb = Array[int]([])
+attackType = Array[int]([0])
+is_special = true
+preliminary_input = 8
+animation_name = "arachnid_special_1"
+impactFrames = Array[int]([7])
+totalFrames = 20
+item_id = "0000"
+item_name = "Web Up"
+slot = 9
+metadata/_custom_type_script = "uid://chotp76denwcv"

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="FFHelmetData" load_steps=3 format=3 uid="uid://b5u6xrjil8nx1"]
+
+[ext_resource type="Script" uid="uid://bg4fwqubct8xu" path="res://resources/items/FFHelmetData.gd" id="1_uouyt"]
+[ext_resource type="Texture2D" uid="uid://bu03bsssp2cpl" path="res://icon.svg" id="2_uouyt"]
+
+[resource]
+script = ExtResource("1_uouyt")
+meshes = Array[Mesh]([null, null])
+item_id = "dragonSkull"
+item_name = "Dragon Skull"
+slot = 1
+thumbnail = ExtResource("2_uouyt")
+metadata/_custom_type_script = "uid://bk86t2i1x1q4u"

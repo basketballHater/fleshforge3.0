@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="AttackData" load_steps=2 format=3 uid="uid://cs8yoi2cmp7yt"]
+
+[ext_resource type="Script" uid="uid://chotp76denwcv" path="res://resources/attacks/AttackData.gd" id="1_5sfpb"]
+
+[resource]
+script = ExtResource("1_5sfpb")
+description = ""
+is_unlocked = false
+attack_class = 9
+knockback = 2.0
+is_launcher = false
+speedAdd = 0
+hop = 0
+range = Array[float]([1.5, 1.5, 1.5])
+input = 72
+nextCombo = {}
+chainFrame = 0
+attackStart = Array[int]([15, 18, 20])
+attackEnd = Array[int]([18, 20, 23])
+attackLimb = Array[int]([4, 5, 7])
+attackType = Array[int]([0, 0, 0])
+is_special = false
+preliminary_input = 0
+animation_name = "arachnid_backward_2"
+impactFrames = Array[int]([18, 20, 23])
+totalFrames = 35
+item_id = "0001"
+item_name = "Lash Out"
+slot = 7
+metadata/_custom_type_script = "uid://chotp76denwcv"

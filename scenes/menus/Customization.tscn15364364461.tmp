@@ -1,0 +1,488 @@
+[gd_scene load_steps=23 format=3 uid="uid://bpehv4msdhfmk"]
+
+[ext_resource type="Script" uid="uid://bdxjp2csuv0yt" path="res://scripts/menus/Customization.gd" id="1_5cmea"]
+[ext_resource type="Texture2D" uid="uid://8r3rugvodwke" path="res://assets/UI/UI.png" id="3_3oncr"]
+[ext_resource type="FontFile" uid="uid://bcycxw5oqf3ht" path="res://assets/fonts/agency-fb/AGENCYB.TTF" id="3_7dapn"]
+[ext_resource type="Texture2D" uid="uid://dfku62fatls2e" path="res://assets/UI/customization.png" id="3_fnvtc"]
+[ext_resource type="PackedScene" uid="uid://b50mo5e2u5nyk" path="res://scenes/fight/characterInherited.tscn" id="5_7dapn"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8vf3i"]
+content_margin_left = 0.0
+content_margin_top = 20.0
+content_margin_right = 0.0
+content_margin_bottom = 20.0
+texture = ExtResource("3_3oncr")
+texture_margin_left = 30.0
+texture_margin_top = 30.0
+texture_margin_right = 30.0
+texture_margin_bottom = 30.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+region_rect = Rect2(597, 632, 297, 297)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_34cm7"]
+content_margin_left = 0.0
+content_margin_top = 20.0
+content_margin_right = 0.0
+content_margin_bottom = 20.0
+texture = ExtResource("3_3oncr")
+texture_margin_left = 30.0
+texture_margin_top = 30.0
+texture_margin_right = 30.0
+texture_margin_bottom = 30.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+region_rect = Rect2(299, 632, 297, 297)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3eg6m"]
+content_margin_left = 0.0
+content_margin_top = 20.0
+content_margin_right = 0.0
+content_margin_bottom = 20.0
+texture = ExtResource("3_3oncr")
+texture_margin_left = 30.0
+texture_margin_top = 30.0
+texture_margin_right = 30.0
+texture_margin_bottom = 30.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+region_rect = Rect2(1, 632, 297, 297)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jx1bd"]
+content_margin_left = 0.0
+content_margin_top = 20.0
+content_margin_right = 0.0
+content_margin_bottom = 20.0
+texture = ExtResource("3_3oncr")
+texture_margin_left = 30.0
+texture_margin_top = 30.0
+texture_margin_right = 30.0
+texture_margin_bottom = 30.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+region_rect = Rect2(597, 632, 297, 297)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j7n7d"]
+content_margin_left = 0.0
+content_margin_top = 20.0
+content_margin_right = 0.0
+content_margin_bottom = 20.0
+texture = ExtResource("3_3oncr")
+texture_margin_left = 30.0
+texture_margin_top = 30.0
+texture_margin_right = 30.0
+texture_margin_bottom = 30.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+region_rect = Rect2(299, 632, 297, 297)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qsnb7"]
+content_margin_left = 0.0
+content_margin_top = 20.0
+content_margin_right = 0.0
+content_margin_bottom = 20.0
+texture = ExtResource("3_3oncr")
+texture_margin_left = 30.0
+texture_margin_top = 30.0
+texture_margin_right = 30.0
+texture_margin_bottom = 30.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+region_rect = Rect2(1, 632, 297, 297)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wcthr"]
+content_margin_left = 0.0
+content_margin_top = 20.0
+content_margin_right = 0.0
+content_margin_bottom = 20.0
+texture = ExtResource("3_3oncr")
+texture_margin_left = 30.0
+texture_margin_top = 30.0
+texture_margin_right = 30.0
+texture_margin_bottom = 30.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+region_rect = Rect2(597, 632, 297, 297)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cnx20"]
+content_margin_left = 0.0
+content_margin_top = 20.0
+content_margin_right = 0.0
+content_margin_bottom = 20.0
+texture = ExtResource("3_3oncr")
+texture_margin_left = 30.0
+texture_margin_top = 30.0
+texture_margin_right = 30.0
+texture_margin_bottom = 30.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+region_rect = Rect2(299, 632, 297, 297)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a0xcq"]
+content_margin_left = 0.0
+content_margin_top = 20.0
+content_margin_right = 0.0
+content_margin_bottom = 20.0
+texture = ExtResource("3_3oncr")
+texture_margin_left = 30.0
+texture_margin_top = 30.0
+texture_margin_right = 30.0
+texture_margin_bottom = 30.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+region_rect = Rect2(1, 632, 297, 297)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7dapn"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7dapn"]
+content_margin_left = 30.0
+content_margin_top = 20.0
+content_margin_right = 30.0
+content_margin_bottom = 20.0
+texture = ExtResource("3_3oncr")
+texture_margin_left = 9.0
+region_rect = Rect2(19, 1228, 101, 64)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gniqg"]
+content_margin_left = 30.0
+content_margin_top = 20.0
+content_margin_right = 30.0
+content_margin_bottom = 20.0
+texture = ExtResource("3_3oncr")
+region_rect = Rect2(122, 1228, 125, 64)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2lox5"]
+content_margin_left = 30.0
+content_margin_top = 20.0
+content_margin_right = 30.0
+content_margin_bottom = 20.0
+texture = ExtResource("3_3oncr")
+region_rect = Rect2(122, 1228, 125, 64)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fnvtc"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_3oncr"]
+sky_material = SubResource("ProceduralSkyMaterial_fnvtc")
+
+[sub_resource type="Environment" id="Environment_7dapn"]
+background_mode = 2
+sky = SubResource("Sky_3oncr")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_fnvtc"]
+
+[node name="Customization" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5cmea")
+metadata/_edit_use_anchors_ = true
+
+[node name="Background" type="TextureRect" parent="."]
+z_index = -100
+custom_minimum_size = Vector2(1920, 1280)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_fnvtc")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Interface" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Interface"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="UI/Interface/HBoxContainer"]
+custom_minimum_size = Vector2(310, 1000)
+layout_mode = 2
+texture = ExtResource("3_3oncr")
+region_rect = Rect2(2, 335, 295, 295)
+patch_margin_left = 25
+patch_margin_top = 25
+patch_margin_right = 25
+patch_margin_bottom = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Interface/HBoxContainer/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.0
+offset_right = 150.0
+offset_bottom = 412.0
+grow_horizontal = 2
+
+[node name="Control" type="Control" parent="UI/Interface/HBoxContainer/NinePatchRect/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="Player" type="Label" parent="UI/Interface/HBoxContainer/NinePatchRect/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_7dapn")
+theme_override_font_sizes/font_size = 35
+horizontal_alignment = 1
+
+[node name="Augments" type="Button" parent="UI/Interface/HBoxContainer/NinePatchRect/VBoxContainer"]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_7dapn")
+theme_override_font_sizes/font_size = 27
+theme_override_styles/hover = SubResource("StyleBoxTexture_8vf3i")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_34cm7")
+theme_override_styles/normal = SubResource("StyleBoxTexture_3eg6m")
+text = "AUGMENTS"
+
+[node name="Outfits" type="Button" parent="UI/Interface/HBoxContainer/NinePatchRect/VBoxContainer"]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_7dapn")
+theme_override_font_sizes/font_size = 27
+theme_override_styles/hover = SubResource("StyleBoxTexture_jx1bd")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_j7n7d")
+theme_override_styles/normal = SubResource("StyleBoxTexture_qsnb7")
+text = "OUTFITS"
+
+[node name="Moveset" type="Button" parent="UI/Interface/HBoxContainer/NinePatchRect/VBoxContainer"]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_7dapn")
+theme_override_font_sizes/font_size = 27
+theme_override_styles/hover = SubResource("StyleBoxTexture_wcthr")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_cnx20")
+theme_override_styles/normal = SubResource("StyleBoxTexture_a0xcq")
+text = "COMBOS"
+
+[node name="Control2" type="Control" parent="UI/Interface/HBoxContainer/NinePatchRect/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="gender" type="Control" parent="UI/Interface/HBoxContainer/NinePatchRect/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Interface/HBoxContainer/NinePatchRect/VBoxContainer/gender"]
+layout_mode = 2
+offset_top = 4.0
+offset_right = 300.0
+offset_bottom = 46.0
+theme_override_colors/font_color = Color(0.494118, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_7dapn")
+theme_override_font_sizes/font_size = 35
+text = "          GENDER"
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Interface/HBoxContainer/NinePatchRect/VBoxContainer/gender"]
+layout_mode = 2
+offset_left = 18.0
+offset_top = 50.0
+offset_right = 282.0
+offset_bottom = 150.0
+size_flags_horizontal = 4
+
+[node name="Male" type="Button" parent="UI/Interface/HBoxContainer/NinePatchRect/VBoxContainer/gender/HBoxContainer"]
+custom_minimum_size = Vector2(130, 100)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_7dapn")
+theme_override_font_sizes/font_size = 27
+theme_override_styles/hover = SubResource("StyleBoxTexture_8vf3i")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_34cm7")
+theme_override_styles/normal = SubResource("StyleBoxTexture_3eg6m")
+text = "MALE"
+
+[node name="Female" type="Button" parent="UI/Interface/HBoxContainer/NinePatchRect/VBoxContainer/gender/HBoxContainer"]
+custom_minimum_size = Vector2(130, 100)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_7dapn")
+theme_override_font_sizes/font_size = 27
+theme_override_styles/hover = SubResource("StyleBoxTexture_8vf3i")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_34cm7")
+theme_override_styles/normal = SubResource("StyleBoxTexture_3eg6m")
+text = "FEMALE"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="UI/Interface/HBoxContainer"]
+layout_mode = 2
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="UI/Interface/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(700, 1000)
+layout_mode = 2
+texture = ExtResource("3_3oncr")
+region_rect = Rect2(2, 335, 295, 295)
+patch_margin_left = 25
+patch_margin_top = 25
+patch_margin_right = 25
+patch_margin_bottom = 25
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Interface/HBoxContainer/VBoxContainer2/NinePatchRect2"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -340.0
+offset_right = 340.0
+offset_bottom = 81.0
+grow_horizontal = 2
+
+[node name="Control" type="Control" parent="UI/Interface/HBoxContainer/VBoxContainer2/NinePatchRect2/HBoxContainer"]
+custom_minimum_size = Vector2(1, 20)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Interface/HBoxContainer/VBoxContainer2/NinePatchRect2/HBoxContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="UI/Interface/HBoxContainer/VBoxContainer2/NinePatchRect2/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="TabContainer" type="TabContainer" parent="UI/Interface/HBoxContainer/VBoxContainer2/NinePatchRect2/HBoxContainer/VBoxContainer"]
+z_index = 5
+z_as_relative = false
+clip_contents = true
+custom_minimum_size = Vector2(675, 675)
+layout_direction = 4
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("3_7dapn")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/tab_focus = SubResource("StyleBoxEmpty_7dapn")
+theme_override_styles/tab_selected = SubResource("StyleBoxTexture_7dapn")
+theme_override_styles/tab_hovered = SubResource("StyleBoxTexture_gniqg")
+theme_override_styles/tab_unselected = SubResource("StyleBoxTexture_2lox5")
+current_tab = 0
+use_hidden_tabs_for_min_size = true
+deselect_enabled = true
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/Interface/HBoxContainer/VBoxContainer2/NinePatchRect2/HBoxContainer/VBoxContainer/TabContainer"]
+custom_minimum_size = Vector2(100, 600)
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="GridContainer" type="GridContainer" parent="UI/Interface/HBoxContainer/VBoxContainer2/NinePatchRect2/HBoxContainer/VBoxContainer/TabContainer/ScrollContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="UI/Interface/HBoxContainer/VBoxContainer2/NinePatchRect2/HBoxContainer/VBoxContainer/TabContainer/ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+text = "fahh
+"
+
+[node name="Button2" type="Button" parent="UI/Interface/HBoxContainer/VBoxContainer2/NinePatchRect2/HBoxContainer/VBoxContainer/TabContainer/ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+text = "fahh
+"
+
+[node name="ItemInfoPanel" type="PanelContainer" parent="UI/Interface"]
+layout_mode = 0
+offset_left = 344.0
+offset_top = 736.0
+offset_right = 662.0
+offset_bottom = 832.0
+
+[node name="ItemNameLabel" type="Label" parent="UI/Interface/ItemInfoPanel"]
+layout_mode = 2
+text = "Item"
+
+[node name="ItemClassLabel" type="Label" parent="UI/Interface/ItemInfoPanel"]
+layout_mode = 2
+text = "Class"
+horizontal_alignment = 1
+
+[node name="BtnSave" type="Button" parent="UI/Interface"]
+layout_mode = 0
+offset_left = 367.0
+offset_top = 880.0
+offset_right = 446.0
+offset_bottom = 911.0
+text = "Save"
+
+[node name="BtnBack" type="Button" parent="UI/Interface"]
+layout_mode = 0
+offset_left = 367.0
+offset_top = 930.0
+offset_right = 445.0
+offset_bottom = 961.0
+text = "Exit"
+
+[node name="NEXT" type="Button" parent="UI/Interface"]
+layout_mode = 0
+offset_left = 1760.0
+offset_top = 456.0
+offset_right = 1809.0
+offset_bottom = 487.0
+text = "NEXT"
+
+[node name="Control" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Viewport" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Viewport"]
+environment = SubResource("Environment_7dapn")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Viewport"]
+transform = Transform3D(-0.505955, -0.801262, 0.319355, -0.602957, 0.593301, 0.533326, -0.616808, 0.0772814, -0.783311, 2.48614, 5.58372, -5.73509)
+light_color = Color(0.453277, 0.140983, 0.12902, 1)
+light_energy = 4.0
+light_volumetric_fog_energy = 5.0
+shadow_enabled = true
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="Viewport"]
+transform = Transform3D(-0.70251, -0.71167, -0.00252933, 0.512871, -0.508727, 0.691491, -0.4934, 0.484482, 0.72238, 0, 9.89777, 2.79706)
+light_energy = 0.3
+light_volumetric_fog_energy = 5.0
+shadow_enabled = true
+
+[node name="Character" parent="Viewport" instance=ExtResource("5_7dapn")]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Viewport"]
+z_as_relative = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 736.0
+offset_top = -64.0
+offset_right = -160.0
+offset_bottom = -320.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.18721, 1.18721)
+size_flags_horizontal = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="SubViewport" type="SubViewport" parent="Viewport/SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+msaa_2d = 1
+msaa_3d = 1
+screen_space_aa = 1
+use_debanding = true
+use_occlusion_culling = true
+size = Vector2i(1024, 1024)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="Viewport/SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.11427, 8.90482)
+projection = 1
+size = 13.125
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Viewport"]
+transform = Transform3D(1, 1.85859e-08, -4.14813e-09, -1.85859e-08, 0.905102, -0.425195, -4.14813e-09, 0.425195, 0.905102, 0, 1.93411, -0.0394707)
+visible = false
+mesh = SubResource("BoxMesh_fnvtc")

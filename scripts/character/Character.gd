@@ -9,9 +9,9 @@ const BONES_WEAPON_L := ["wepon1.L", "wepon2.L", "wepon3.L"]
 const BONES_LEGS_R   := ["lowerleg.R", "foot.R", "toe.R", "extention2.R"]
 const BONES_LEGS_L   := ["lowerleg.L", "foot.L", "toe.L", "extention2.L"]
 const BONES_BACK   := ["back", "back_Up1.R", "back_Up2.R", "back_Up3.R", "back_Up4.R", 
-"back_Up5.R", "back_Down1.R", "back_Down2.R", "back_Down3.R", "back_Down4.R", 
-"back_Down5.R", "back_Up1.L", "back_Up2.L", "back_Up3.L", "back_Up4.L", 
-"back_Up5.L", "back_Down1.L", "back_Down2.L", "back_Down3.L", "back_Down4.L", 
+"back_Up5.R","back_Up1.L", "back_Up2.L", "back_Up3.L", "back_Up4.L", 
+"back_Up5.L", "back_Down1.R", "back_Down2.R", "back_Down3.R", "back_Down4.R", 
+"back_Down5.R",  "back_Down1.L", "back_Down2.L", "back_Down3.L", "back_Down4.L", 
 "back_Down5.L"]
 const BONES_ARMOUR_R := ["upperArm.R"]
 const BONES_ARMOUR_L := ["upperArm.L"]
@@ -62,14 +62,13 @@ var _bottom_node: MeshInstance3D = null
 var _pending_top_path:    String = ""
 var _pending_bottom_path: String = ""
 
-# ── Preview camera ────────────────────────────────────────────────────────────
-@onready var preview_camera: Camera3D = $PreviewCamera
-
 # ── Orbit drag state ──────────────────────────────────────────────────────────
 var _orbit_active:   bool    = false
 var _orbit_last_pos: Vector2 = Vector2.ZERO
 var _orbit_yaw:      float   = 0.0
 const ORBIT_SPEED:   float   = 0.4
+
+var characterData = GameState.get_active_data()
 
 # ── Lifecycle ─────────────────────────────────────────────────────────────────
 
@@ -77,13 +76,14 @@ func _ready() -> void:
 	print("Character: _ready called")
 
 	# Load and instantiate the GLB
-	var scene := load("res://assets/models/bothEdit.glb")
-	if scene == null:
-		push_error("Character: failed to load both.glb")
-		return
-
-	character = scene.instantiate()
-	add_child(character)
+	#var scene := load("res://assets/models/bothEdit.glb")
+	#if scene == null:
+		#push_error("Character: failed to load both.glb")
+		#return
+#
+	#character = scene.instantiate()
+	#add_child(character)
+	character = $bothEdit
 
 	# Cache body mesh nodes
 	#body_male   = character.get_node("Armature/Skeleton3D/body")
@@ -118,6 +118,11 @@ func _make_male(value: bool) -> void:
 	body_male.visible = value
 	cuffMale_R.visible = value
 	cuffMale_L.visible = value
+
+func _on_gender_selected(gender: String) -> void:
+	characterData.gender = gender
+	apply_gender(gender)
+
 
 func _make_female(value: bool) -> void:
 	body_female.visible = value
@@ -269,25 +274,26 @@ func apply_armour(item: FFArmourData) -> void:
 	_apply_multi_mesh(_slot_armour_l, item.meshes if item else [])
 
 func apply_from_player_data() -> void:
-	apply_gender(PlayerData.gender)
-	apply_skin(PlayerData.skin_id)
-	_load_and_apply_helmet(PlayerData.helmet_path)
-	_load_and_apply_weapon(PlayerData.weapons_path)
-	_load_and_apply_legs(PlayerData.legs_path)
-	_load_and_apply_back(PlayerData.back_path)
-	_load_and_apply_armour(PlayerData.armour_path)
-	_load_and_apply_top(PlayerData.top_path)
-	_load_and_apply_bottom(PlayerData.bottom_path)
+	var charData = GameState.get_active_data()
+	apply_gender(charData.gender)
+	apply_skin(charData.skin_id)
+	_load_and_apply_helmet(charData.helmet_path)
+	_load_and_apply_weapon(charData.weapons_path)
+	_load_and_apply_legs(charData.legs_path)
+	_load_and_apply_back(charData.back_path)
+	_load_and_apply_armour(charData.armour_path)
+	_load_and_apply_top(charData.top_path)
+	_load_and_apply_bottom(charData.bottom_path)
 
-func enable_preview_camera(enabled: bool) -> void:
-	if preview_camera:
-		preview_camera.current = enabled
+#func enable_preview_camera(enabled: bool) -> void:
+	#if preview_camera:
+		#preview_camera.current = enabled
 
 # ── Orbit drag ────────────────────────────────────────────────────────────────
 
 func _input(event: InputEvent) -> void:
-	if not preview_camera or not preview_camera.current:
-		return
+	#if not preview_camera or not preview_camera.current:
+		#return
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			_orbit_active   = event.pressed

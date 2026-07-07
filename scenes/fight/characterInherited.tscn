@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://b50mo5e2u5nyk"]
+
+[ext_resource type="PackedScene" uid="uid://dslt48xbqax6b" path="res://scenes/character/Character.tscn" id="1_g2ru3"]
+
+[node name="Character" instance=ExtResource("1_g2ru3")]
+
+[node name="cuffFemale_R" parent="bothEdit/Armature/Skeleton3D" index="2"]
+transform = Transform3D(-0.844347, 0.492536, 0.210917, 0.0540773, 0.469979, -0.88102, -0.53306, -0.732481, -0.423461, -4.62484, -2.51629, 1.07409)
+
+[node name="cuffMale_R" parent="bothEdit/Armature/Skeleton3D" index="3"]
+transform = Transform3D(-0.844347, 0.492536, 0.210917, 0.0540773, 0.469979, -0.88102, -0.53306, -0.732481, -0.423461, -4.62484, -2.51629, 1.07409)
+
+[editable path="bothEdit"]

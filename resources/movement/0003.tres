@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="MovementData" load_steps=2 format=3 uid="uid://2an18nie0s3n"]
+
+[ext_resource type="Script" uid="uid://dyv1lk8x1ypy0" path="res://resources/attacks/MovementData.gd" id="1_0uly3"]
+
+[resource]
+script = ExtResource("1_0uly3")
+animation_name = ""
+impactFrames = Array[int]([0])
+totalFrames = 25
+item_id = ""
+item_name = "Unknown"
+slot = 0
+metadata/_custom_type_script = "uid://dyv1lk8x1ypy0"

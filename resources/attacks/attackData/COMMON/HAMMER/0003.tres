@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="AttackData" load_steps=2 format=3 uid="uid://dw2fcbvxoj2ud"]
+
+[ext_resource type="Script" uid="uid://chotp76denwcv" path="res://resources/attacks/AttackData.gd" id="1_86xfd"]
+
+[resource]
+script = ExtResource("1_86xfd")
+description = "Full run-up double hammer swing"
+is_unlocked = false
+attack_class = 1
+hitstun_frames = 14
+blockstun_frames = 8
+knockback = 5.0
+is_launcher = false
+animation_fps = 30.0
+speedAdd = 10
+range = Array[float]([0.7, 0.8])
+input = 36
+nextCombo = {}
+chainFrame = 0
+startupFrames = 7
+attackStart = Array[int]([5, 12])
+attackEnd = Array[int]([8, 16])
+attackLimb = Array[int]([0, 1])
+recoveryFrames = 10
+required_stance = "any"
+required_meter = 0.0
+animation_name = "hammer_forward_2"
+impactFrames = Array[int]([8, 13])
+totalFrames = 22
+item_id = "0003"
+item_name = "Double Pummel"
+slot = 7
+metadata/_custom_type_script = "uid://chotp76denwcv"

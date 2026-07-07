@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="FFLegData" load_steps=2 format=3 uid="uid://bxxxfsh7dhtd2"]
+
+[ext_resource type="Script" uid="uid://s6k4gr3m5vum" path="res://resources/items/FFLegData.gd" id="1_2m3wh"]
+
+[resource]
+script = ExtResource("1_2m3wh")
+leg_class = 1
+speed = 8.0
+meshes = Array[Mesh]([null, null, null, null])
+item_id = "gyzherWheels"
+item_name = "Gyzher Wheels"
+slot = 4
+metadata/_custom_type_script = "uid://s6k4gr3m5vum"

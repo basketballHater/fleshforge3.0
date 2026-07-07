@@ -9,5 +9,5 @@ absorption = 0
 animation_set = "Unknown"
 item_id = "1"
 item_name = "Unknown"
-slot = "armour"
+slot = 2
 metadata/_custom_type_script = "uid://byxpk51kyqq2h"

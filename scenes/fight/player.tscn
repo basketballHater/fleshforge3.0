@@ -1,0 +1,178 @@
+[gd_scene load_steps=16 format=3 uid="uid://cvj1hmioaxytn"]
+
+[ext_resource type="Script" uid="uid://ckx2xab7ngwro" path="res://scenes/fight/player.gd" id="3_id0vc"]
+[ext_resource type="PackedScene" uid="uid://b50mo5e2u5nyk" path="res://scenes/fight/characterInherited.tscn" id="4_elbjs"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wcevn"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6sfk2"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_r66f3"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qsq4k"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_y73cr"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4mgba"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2de2i"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wsu1o"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yq07y"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wra2d"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lbxbr"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ey348"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_n4171"]
+
+[node name="player1" type="CharacterBody3D"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("3_id0vc")
+playerNum = 1
+speed = 10.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_wcevn")
+
+[node name="Character" parent="." instance=ExtResource("4_elbjs")]
+
+[node name="Skeleton3D" parent="Character/bothEdit/Armature" index="0"]
+bones/0/position = Vector3(0, 1.05501, 0.654831)
+bones/0/rotation = Quaternion(0.101311, 1.18595e-07, 1.20772e-08, 0.994855)
+bones/1/rotation = Quaternion(-0.0666848, -1.18943e-07, -7.94942e-09, 0.997774)
+bones/2/rotation = Quaternion(-0.172482, 1.17423e-07, -2.05615e-08, 0.985013)
+bones/3/rotation = Quaternion(0.241038, -2.31389e-07, 4.75884e-14, 0.970516)
+bones/4/rotation = Quaternion(-0.104645, -3.78443e-14, 2.49492e-08, 0.99451)
+bones/7/rotation = Quaternion(0.603623, 0.640546, 0.280948, -0.382633)
+bones/8/rotation = Quaternion(-0.0237451, 0.0334392, -0.0382153, 0.998428)
+bones/9/position = Vector3(7.96855e-08, 0.891982, -1.27358e-07)
+bones/9/rotation = Quaternion(0.0336767, -0.00235171, 0.00274198, 0.999426)
+bones/10/rotation = Quaternion(1.05701e-07, -1.74889e-08, 1.94875e-08, 1)
+bones/14/rotation = Quaternion(0.596397, 0.048752, -0.0228242, 0.800883)
+bones/15/rotation = Quaternion(-0.220375, -0.0347459, 0.311004, 0.923853)
+bones/16/rotation = Quaternion(-0.478013, 0.0720586, 0.444789, 0.753972)
+bones/17/rotation = Quaternion(0.65133, -0.39915, -0.0256001, 0.644821)
+bones/18/rotation = Quaternion(-0.603623, 0.640546, 0.280948, 0.382633)
+bones/20/rotation = Quaternion(0.0336767, 0.00235172, -0.00274198, 0.999426)
+bones/21/rotation = Quaternion(1.20704e-07, 1.64519e-08, -1.87315e-08, 1)
+bones/25/rotation = Quaternion(0.596397, -0.048752, 0.0228242, 0.800883)
+bones/26/rotation = Quaternion(-0.220375, 0.0347459, -0.311004, 0.923853)
+bones/29/rotation = Quaternion(0.809013, -0.0148874, -0.562793, -0.168942)
+bones/43/rotation = Quaternion(0.809013, 0.0148874, 0.562793, -0.168942)
+bones/44/rotation = Quaternion(0.811408, -0.00726011, 0.455293, 0.366432)
+bones/48/rotation = Quaternion(-0.0532324, 5.72206e-08, 0.106971, 0.992836)
+bones/58/position = Vector3(0.731693, 0.00564538, 0.41472)
+bones/58/rotation = Quaternion(0.576026, 0.0544033, 0.811288, 0.0839434)
+bones/59/rotation = Quaternion(-0.0481613, 0.898304, -0.0257433, -0.435967)
+bones/59/scale = Vector3(1, 1, 1)
+bones/60/rotation = Quaternion(-0.0803308, 0.795742, -0.582303, -0.145826)
+bones/61/rotation = Quaternion(0.216062, 8.48297e-07, -2.07947e-07, 0.97638)
+bones/62/rotation = Quaternion(0.843183, 5.07606e-07, -5.50911e-07, 0.537626)
+bones/65/rotation = Quaternion(0.625711, 1.29386e-07, -0.219297, 0.748595)
+bones/66/rotation = Quaternion(0.229564, 6.58687e-07, -0.674894, 0.701298)
+bones/67/position = Vector3(-0.731693, 0.00564532, 0.41472)
+bones/67/rotation = Quaternion(-0.576026, 0.0544033, 0.811288, -0.0839434)
+bones/68/rotation = Quaternion(0.0481613, 0.898304, -0.0257433, 0.435967)
+bones/68/scale = Vector3(1, 1, 1)
+bones/69/rotation = Quaternion(0.0803309, 0.795742, -0.582303, 0.145826)
+bones/70/rotation = Quaternion(0.216062, -9.29152e-07, 2.56363e-07, 0.97638)
+bones/71/rotation = Quaternion(0.843183, -5.30544e-07, 6.42321e-07, 0.537626)
+bones/74/rotation = Quaternion(0.625711, -2.09008e-07, 0.219297, 0.748595)
+bones/75/rotation = Quaternion(0.229564, -6.69311e-07, 0.674893, 0.701298)
+
+[node name="cuffFemale_L" parent="Character/bothEdit/Armature/Skeleton3D" index="0"]
+transform = Transform3D(-0.488342, -0.837664, 0.244623, -0.858397, 0.410645, -0.307448, 0.157085, -0.360124, -0.919584, 3.69479, 4.41085, 4.77576)
+
+[node name="cuffMale_L" parent="Character/bothEdit/Armature/Skeleton3D" index="1"]
+transform = Transform3D(-0.488342, -0.837664, 0.244623, -0.858397, 0.410645, -0.307448, 0.157085, -0.360124, -0.919584, 3.69479, 4.41085, 4.77576)
+
+[node name="cuffFemale_R" parent="Character/bothEdit/Armature/Skeleton3D" index="2"]
+transform = Transform3D(-0.421781, 0.81538, 0.396556, 0.905468, 0.401559, 0.137399, -0.0472083, 0.417021, -0.90767, -5.47055, 3.1314, 1.46147)
+
+[node name="cuffMale_R" parent="Character/bothEdit/Armature/Skeleton3D" index="3"]
+transform = Transform3D(-0.421781, 0.81538, 0.396556, 0.905468, 0.401559, 0.137399, -0.0472083, 0.417021, -0.90767, -5.47055, 3.1314, 1.46147)
+
+[node name="female" parent="Character/bothEdit/Armature/Skeleton3D" index="4"]
+visible = false
+
+[node name="male" parent="Character/bothEdit/Armature/Skeleton3D" index="5"]
+visible = false
+
+[node name="Label" type="Label" parent="Character/bothEdit/AnimationPlayer" index="0"]
+offset_right = 592.0
+offset_bottom = 128.0
+
+[node name="HurtboxBody" type="Area3D" parent="."]
+
+[node name="head" type="CollisionShape3D" parent="HurtboxBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+shape = SubResource("CapsuleShape3D_6sfk2")
+debug_color = Color(0.849083, 0.374175, 0, 0.42)
+
+[node name="torso" type="CollisionShape3D" parent="HurtboxBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+shape = SubResource("CapsuleShape3D_r66f3")
+debug_color = Color(8.47101e-06, 0.582793, 0.791755, 0.419608)
+
+[node name="abdomen" type="CollisionShape3D" parent="HurtboxBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+shape = SubResource("CapsuleShape3D_qsq4k")
+debug_color = Color(0.395641, 0.610292, 0, 0.419608)
+
+[node name="upperLeg_L" type="CollisionShape3D" parent="HurtboxBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+shape = SubResource("CapsuleShape3D_y73cr")
+debug_color = Color(0.414925, 0.605309, 0, 0.42)
+
+[node name="upperLeg_R" type="CollisionShape3D" parent="HurtboxBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+shape = SubResource("CapsuleShape3D_4mgba")
+debug_color = Color(0.414925, 0.605309, 0, 0.42)
+
+[node name="upperArm_L" type="CollisionShape3D" parent="HurtboxBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+shape = SubResource("CapsuleShape3D_2de2i")
+debug_color = Color(0.723703, 0.244493, 1, 0.42)
+
+[node name="upperArm_R" type="CollisionShape3D" parent="HurtboxBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+shape = SubResource("CapsuleShape3D_wsu1o")
+debug_color = Color(0.72549, 0.243137, 1, 0.419608)
+
+[node name="HurtboxMachine" type="Area3D" parent="."]
+
+[node name="lowerArm_R" type="CollisionShape3D" parent="HurtboxMachine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+shape = SubResource("CapsuleShape3D_yq07y")
+debug_color = Color(7.70092e-07, 0.56849, 0.852961, 0.42)
+
+[node name="lowerArm_L" type="CollisionShape3D" parent="HurtboxMachine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+shape = SubResource("CapsuleShape3D_wra2d")
+debug_color = Color(0, 0.572133, 0.837617, 0.42)
+
+[node name="lowerLeg_L" type="CollisionShape3D" parent="HurtboxMachine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+shape = SubResource("CapsuleShape3D_lbxbr")
+debug_color = Color(1.68458e-06, 0.623833, 0.534264, 0.42)
+
+[node name="lowerLeg_R" type="CollisionShape3D" parent="HurtboxMachine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+shape = SubResource("CapsuleShape3D_ey348")
+debug_color = Color(1.68458e-06, 0.623833, 0.534264, 0.42)
+
+[node name="Hitbox" type="Area3D" parent="."]
+
+[node name="Main" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+shape = SubResource("CapsuleShape3D_n4171")
+debug_color = Color(0.43, 0, 0.114667, 0.843137)
+
+[editable path="Character"]
+[editable path="Character/bothEdit"]

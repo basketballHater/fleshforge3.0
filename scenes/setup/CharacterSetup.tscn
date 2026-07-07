@@ -7,6 +7,9 @@
 transform = Transform3D(1, 0, 0, 0, 0.786526, -0.617558, 0, 0.617558, 0.786526, 0, 5.31023, 2.70901)
 script = ExtResource("1_kp0pa")
 
+[node name="Character" parent="." instance=ExtResource("1_2rfi8")]
+transform = Transform3D(1, 0, 0, 0, 0.786525, 0.617557, 0, -0.617557, 0.786525, 0, -5.8496, 1.14867)
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
 shadow_enabled = true
@@ -29,7 +32,8 @@ handle_input_locally = false
 size = Vector2i(1446, 1109)
 render_target_update_mode = 4
 
-[node name="Character" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_2rfi8")]
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7.22258)
 
 [node name="UI" type="CanvasLayer" parent="."]
 

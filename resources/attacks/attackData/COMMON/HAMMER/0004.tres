@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="AttackData" load_steps=2 format=3 uid="uid://bxrgj82nfgubn"]
+
+[ext_resource type="Script" uid="uid://chotp76denwcv" path="res://resources/attacks/AttackData.gd" id="1_1cgvu"]
+
+[resource]
+script = ExtResource("1_1cgvu")
+description = "Airborne overhead hammer plunge"
+is_unlocked = false
+attack_class = 1
+hitstun_frames = 14
+blockstun_frames = 8
+knockback = 5.0
+is_launcher = true
+animation_fps = 30.0
+speedAdd = 0
+range = Array[float]([0.8])
+input = 4112
+nextCombo = {}
+chainFrame = 0
+startupFrames = 7
+attackStart = Array[int]([8])
+attackEnd = Array[int]([11])
+attackLimb = Array[int]([0])
+recoveryFrames = 12
+required_stance = "any"
+required_meter = 0.0
+animation_name = "hammer_jump_1"
+impactFrames = Array[int]([1])
+totalFrames = 20
+item_id = "0004"
+item_name = "Ariel Bonk"
+slot = 7
+metadata/_custom_type_script = "uid://chotp76denwcv"
