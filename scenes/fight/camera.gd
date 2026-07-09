@@ -55,7 +55,7 @@
 #
 	#if input_dir != Vector3.ZERO:
 		#global_position += input_dir.normalized() * speed * delta
-	
+	#
 	
 
 extends Camera3D

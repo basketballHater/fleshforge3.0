@@ -145,12 +145,12 @@ var transition_direction := 1  # 1 = playing toward target, -1 = playing back to
 
 func _ready() -> void:
 	setup()
-	print_tree_pretty()
+	#print_tree_pretty()
 	_setup_input_actions()
-	print(playerNum, " animPlayer: ", animPlayer)
+	#print(playerNum, " animPlayer: ", animPlayer)
 	
-	print("global transform", headCol,global_transform)
-	print("transform", headCol,transform)
+	#print("global transform", headCol,global_transform)
+	#print("transform", headCol,transform)
 	
 	
 
@@ -176,8 +176,8 @@ func setup() -> void:
 	hurtboxBody.monitorable = false
 	hurtboxMachine.monitorable = false
 	#hitbox.monitorable = true
-	print(playerNum,"SETUP CALLED")
-	print(name, " setup — animPlayer: ", animPlayer, " skeleton: ", skeleton)
+	#print(playerNum,"SETUP CALLED")
+	#print(name, " setup — animPlayer: ", animPlayer, " skeleton: ", skeleton)
 	# all your other @onready assignments here
 	
 	hurtboxBody.area_entered.connect(_on_Bodyhit)
@@ -189,29 +189,34 @@ func setup() -> void:
 
 func _physics_process(delta: float) -> void:
 	speedFactor = 1
-
+	var start = Time.get_ticks_usec()
 	getInput()
 	inputHistory()
 	_update_facing(delta)
 	_update_movement()
+	
 	handleAnimation()
+	
 	_apply_gravity(delta)
 	handle_jump()
 	#handle_Animation()
 	
 
 	velocity.x = direction * speed * speedFactor + speedAdd * facing + momentum
-	print('vhhggbbg',speed)
+	#print('vhhggbbg',speed)
 
 	handleCollision()
 	move_and_slide()
+	var end = Time.get_ticks_usec()
+	#print("player ",playerNum," if GAYSEX ", (end - start) / 1000.0, " ms")
 
 	
 	# animation fps
 
 func handleAnimation():
 
-	# TODO: set forwardPressed / backwardPressed from your existing movement input
+	if attacking or waitingCol or hitBody:
+		return
  
 	if not onfloor:
 		_handle_jump()
@@ -220,11 +225,11 @@ func handleAnimation():
 
 func _on_Bodyhit(area: Area3D) -> void:
 	hitBody = true;
-	print(playerNum,"hit detected with: ", area,global_position.x)
+	#print(playerNum,"hit detected with: ", area,global_position.x)
 
 func _on_MachineHit(area: Area3D) -> void:
 	hitMachine = true;
-	print(playerNum,"hit detected with: ", area,global_position.x)
+	#print(playerNum,"hit detected with: ", area,global_position.x)
 
 func handleAttack() -> void:
 	if attacking:
@@ -530,16 +535,23 @@ func _debug_print_buttons() -> void:
 # ════════════════════════════════════════════════════════════════════════════
 
 func _update_facing(delta: float) -> void:
+	var new_facing: int
+	var new_z: float
 	if Physics.left == playerNum:
 		target_rot_y = deg_to_rad(90)
-		position.z   = -0.2
-		facing        = 1
+		new_z = -0.2
+		new_facing = 1
 	else:
 		target_rot_y = deg_to_rad(270)
-		position.z   = 0.2
-		facing        = -1
+		new_z = 0.2
+		new_facing = -1
 
-	rotation.y = lerp_angle(rotation.y, target_rot_y, 8.0 * delta)
+	if new_facing != facing:
+		facing = new_facing
+		position.z = new_z  # only touch the transform on an actual side-swap
+
+	#rotation.y = lerp_angle(rotation.y, target_rot_y, 8.0 * delta)
+	rotation.y = target_rot_y
 
 
 func _update_movement() -> void:
@@ -717,8 +729,8 @@ func _handle_grounded_transitions() -> void:
 		State.CROUCH_TRANS:
 			if transition_direction == 1 and not crouchPressed:
 				crouching = false
-				_start_transition(State.CROUCH_TRANS, -1)
-			elif transition_direction == -1 and crouchPressed:
+				_start_transition(State.CROUCH_TRANS, 1)
+			elif transition_direction == 1 and crouchPressed:
 				_start_transition(State.CROUCH_TRANS, 1)
 				
 		State.CROUCH_TRANS_R:
@@ -740,8 +752,8 @@ func _handle_grounded_transitions() -> void:
 		State.BLOCK_TRANS:
 			if transition_direction == 1 and not R1Pressed:
 				blocking = false
-				_start_transition(State.BLOCK_TRANS, -1)
-			elif transition_direction == -1 and R1Pressed:
+				_start_transition(State.BLOCK_TRANS, 1)
+			elif transition_direction == 1 and R1Pressed:
 				_start_transition(State.BLOCK_TRANS, 1)
  
 		State.BLOCK_IDLE:
@@ -755,15 +767,15 @@ func _handle_grounded_transitions() -> void:
 		State.CROUCH_BLOCK_TRANS1:
 			if transition_direction == 1 and not R1Pressed:
 				blocking = false
-				_start_transition(State.CROUCH_BLOCK_TRANS1, -1)
-			elif transition_direction == -1 and R1Pressed:
+				_start_transition(State.CROUCH_BLOCK_TRANS1, 1)
+			elif transition_direction == 1 and R1Pressed:
 				_start_transition(State.CROUCH_BLOCK_TRANS1, 1)
  
 		State.CROUCH_BLOCK_TRANS2:
 			if transition_direction == 1 and not crouchPressed:
 				crouching = false
-				_start_transition(State.CROUCH_BLOCK_TRANS2, -1)
-			elif transition_direction == -1 and crouchPressed:
+				_start_transition(State.CROUCH_BLOCK_TRANS2, 1)
+			elif transition_direction == 1 and crouchPressed:
 				_start_transition(State.CROUCH_BLOCK_TRANS2, 1)
 		
 		State.CROUCH_BLOCK_TRANS1_R:
@@ -830,13 +842,13 @@ func _handle_jump() -> void:
 
 func _start_transition(state: State, direction: int) -> void:
 	current_state = state
-	transition_direction = direction
+	#transition_direction = direction
 	var clip: String = TRANSITIONS[state]["clip"]
 	var dir: int = TRANSITIONS[state]["direction"]
  
 	if animPlayer.current_animation == clip:
 		# Already mid-clip: just flip playback direction from current position.
-		animPlayer.speed_scale = direction
+		animPlayer.speed_scale = 1.0
 	else:
 		# Not currently playing this clip: start fresh from the correct end.
 		if dir == 1:
@@ -848,13 +860,10 @@ func _start_transition(state: State, direction: int) -> void:
  
  
 func _on_animation_finished(anim_name: String) -> void:
-	print('FINISHED YOU MOM: ',anim_name, transition_direction)
+	#print('FINISHED YOU MOM: ',anim_name, transition_direction)
 	if TRANSITIONS.has(current_state) and TRANSITIONS[current_state]["clip"] == anim_name:
 		var info = TRANSITIONS[current_state]
-		if transition_direction == 1:
-			_enter_state(info["target"])
-		else:
-			_enter_state(info["base"])
+		_enter_state(info["target"])
  
  
 # Lands the state machine in a stable (non-transitional) state and plays

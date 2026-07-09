@@ -15,6 +15,8 @@ extends Node
 @onready var A: MeshInstance3D = $A
 @onready var B: MeshInstance3D = $B
 
+var timer : int = 0
+
 
 
 
@@ -23,7 +25,7 @@ func _ready() -> void:
 	back.pressed.connect(on_back)
 	
 
-func _process(delta):
+func _physics_process(delta):
 	if not char1 or not char2:
 		return
 	physicsManager()
@@ -42,10 +44,10 @@ func _process(delta):
 		#print("build_hitboxes HIT took ", (end - start) / 1000.0, " ms")
 	#else:
 		#print("build_hitboxes NOT HIT took ", (end - start) / 1000.0, " ms")
-	label.text = "input1:"+str(char1.input_history[0])+" "+"inputArray:"+str(char1.input_history)+" "+"input2:"+str(char2.input_history[0])
+	#label.text = "input1:"+str(char1.input_history[0])+" "+"inputArray:"+str(char1.input_history)+" "+"input2:"+str(char2.input_history[0])
 	if char1.current_attack:
-		label1.text = "char1 hitbox morinoring: "+str(char1.hurtboxBody.monitoring)+"\n "+"char1 hitbox monitorable: "+str(char1.hurtboxBody.monitorable)+"\n "+"char1 hurtbox morinoring: "+str(char1.hurtboxMachine.monitoring)+"\n "+"char1 hurtbox monitorable: "+str(char1.hurtboxMachine.monitorable)+"\n "+"char1 ifImpact: "+str(char1.ifImpact)+"\n "+"char1 waitingCol: "+str(char1.waitingCol)+"\n "+"char1 hit: "+str(char1.hitBody)+"\n "+"char1 comboLate: "+str(char1.comboLate)+"\n "+"char1 crouching: "+str(char1.crouching)+"\n "+"char1 Attacking: "+str(char1.attacking)+"\n "+"char1 blocking: "+str(char1.blocking)+"\n "+"char1 STATE: "+str(char1.current_state as female_rapid.State)+"\n" + "char1 transition_direction: "+str(char1.transition_direction)
-	label2.text = "char2 hitbox morinoring: "+str(char2.hurtboxBody.monitoring)+"\n "+"char2 hitbox monitorable: "+str(char2.hurtboxBody.monitorable)+"\n "+"char2 hurtbox morinoring: "+str(char2.hurtboxMachine.monitoring)+"\n "+"char2 hurtbox monitorable: "+str(char2.hurtboxMachine.monitorable)+"\n "+"char2 ifImpact: "+str(char2.ifImpact)+"\n "+"char2 waitingCol: "+str(char2.waitingCol)+"\n "+"char2 hit: "+str(char2.hitBody)
+		label1.text = "char1 hurtboxBody morinoring: "+str(char1.hurtboxBody.monitoring)+"\n "+"char1 hurtboxBody monitorable: "+str(char1.hurtboxBody.monitorable)+"\n "+"char1 hurtboxMachine morinoring: "+str(char1.hurtboxMachine.monitoring)+"\n "+"char1 hurtboxMachine monitorable: "+str(char1.hurtboxMachine.monitorable)+"\n "+"char1 hitbox monitoring: "+str(char1.hitbox.monitoring)+"\n "+"char1 hitbox monitorable: "+str(char1.hitbox.monitorable)+"\n "+"char1 ifImpact: "+str(char1.ifImpact)+"\n "+"char1 waitingCol: "+str(char1.waitingCol)+"\n "+"char1 hit: "+str(char1.hitBody)+"\n "+"char1 comboLate: "+str(char1.comboLate)+"\n "+"char1 crouching: "+str(char1.crouching)+"\n "+"char1 Attacking: "+str(char1.attacking)
+	label2.text = "char2 hurtboxBody morinoring: "+str(char2.hurtboxBody.monitoring)+"\n "+"char2 hurtboxBody monitorable: "+str(char2.hurtboxBody.monitorable)+"\n "+"char2 hurtboxMachine morinoring: "+str(char2.hurtboxMachine.monitoring)+"\n "+"char2 hurtboxMachine monitorable: "+str(char2.hurtboxMachine.monitorable)+"\n "+"char2 hitbox monitoring: "+str(char2.hitbox.monitoring)+"\n "+"char2 hitbox monitorable: "+str(char2.hitbox.monitorable)+"\n "+"char2 ifImpact: "+str(char2.ifImpact)+"\n "+"char2 waitingCol: "+str(char2.waitingCol)+"\n "+"char2 hit: "+str(char2.hitBody)
 	
 func physicsManager():
 	Physics.characterDiff = char1.global_position.x - char2.global_position.x
@@ -112,13 +114,14 @@ func attackManager(attacker:CharacterBody3D, defender:CharacterBody3D) ->void:
 		print("player ",attacker.playerNum," if Impact ", (end - start) / 1000.0, " ms")
 		return
 	else:
+		#timer = timer + 1
+		#if timer > 10:
 		defender.waitingCol = false
 		defender.hurtboxBody.monitoring = false
 		defender.hurtboxMachine.monitoring = false
 		attacker.hitbox.monitorable = false
+		#timer = 0
 
-	var endT= Time.get_ticks_usec()
-	#print("player ",attacker.playerNum," AttackAll", (endT - startA) / 1000.0, " ms")
 
 
 func on_back()-> void:
