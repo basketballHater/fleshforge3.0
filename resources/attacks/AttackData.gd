@@ -40,6 +40,9 @@ enum limb{arm_L, arm_R, leg_L, leg_R, back_TL, back_TR, back_BL, back_BR, knee_L
 @export var hit_sfx: AudioStream = null
 @export var attack_sfx: AudioStream = null     # whoosh/grunt on startup
 
+var impactTime: Array[float]
+var comboTime: float
+
 
 func get_res_path() -> String:
 	return "res://resources/attacks/attackData/%s/%s/%s.tres" % [FFItemData.itemClass.keys()[slot],AttackData.attackClass.keys()[attack_class], item_id]

@@ -5,14 +5,14 @@
 
 [resource]
 script = ExtResource("1_q7ci0")
-attackID = 0
+attackID = null
 description = "Knee to the face"
-is_unlocked = false
+is_unlocked = null
 attack_class = 1
 knockback = 10.0
-is_launcher = false
+is_launcher = null
 speedAdd = 8
-hop = 0
+hop = null
 range = Array[float]([1.5])
 input = 32
 nextCombo = {
@@ -22,13 +22,13 @@ chainFrame = 10
 attackStart = Array[int]([6])
 attackEnd = Array[int]([10])
 attackLimb = Array[int]([9])
-attackType = Array[int]([0])
-is_special = false
-preliminary_input = 0
+attackType = null
+is_special = null
+preliminary_input = null
 animation_name = "hammer_1_1"
 impactFrames = Array[int]([8])
-totalFrames = 25
+totalFrames = null
 item_id = "0000_1"
-item_name = "Unknown"
+item_name = null
 slot = 8
 metadata/_custom_type_script = "uid://chotp76denwcv"

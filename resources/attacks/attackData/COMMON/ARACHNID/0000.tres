@@ -4,22 +4,24 @@
 
 [resource]
 script = ExtResource("1_q0ie3")
+attackID = null
 description = "Stinger slash to the head"
-is_unlocked = false
+is_unlocked = null
 attack_class = 9
 knockback = 10.0
-is_launcher = false
+is_launcher = null
 speedAdd = 0
-range = Array[float]([0.5])
+hop = null
+range = null
 input = 24
-nextCombo = {}
-chainFrame = 0
+nextCombo = null
+chainFrame = null
 attackStart = Array[int]([8])
 attackEnd = Array[int]([11])
 attackLimb = Array[int]([4])
-attackType = Array[int]([0])
-is_special = false
-preliminary_input = 0
+attackType = null
+is_special = null
+preliminary_input = null
 animation_name = "arachnid_backward_1"
 impactFrames = Array[int]([10])
 totalFrames = 20

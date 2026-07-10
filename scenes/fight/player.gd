@@ -235,13 +235,9 @@ func handleAttack() -> void:
 	if attacking:
 		
 		var currImpactTime = animPlayer.get_current_animation_position()
-		#var lookahead = 1.0 / 60.0  # one physics tick ahead
-		var totalTime = animPlayer.get_current_animation_length()
-		var timeRatio = currImpactTime / totalTime
 		
 		for i in current_attack.impactFrames.size():
-			var frameRaio = float(current_attack.impactFrames[i])/ float(current_attack.totalFrames) 
-			if not impact_triggered[i] and frameRaio < timeRatio:
+			if not impact_triggered[i] and current_attack.impactTime[i] < currImpactTime:
 				impact_triggered[i] = true
 				headCol.transform = current_attack.hitbox_snapshots[i].headCol_transform
 				torsoCol.transform = current_attack.hitbox_snapshots[i].torsoCol_transform
@@ -259,8 +255,7 @@ func handleAttack() -> void:
 				Main.shape.height = current_attack.hitbox_snapshots[i].hitbox_height
 				ifImpact = true
 		for key in current_attack.nextCombo:
-			var comboframeRatio = float(current_attack.chainFrame)/ float(current_attack.totalFrames)
-			if !comboLate and comboframeRatio < timeRatio:
+			if !comboLate and current_attack.comboTime < currImpactTime:
 				for i in range(input_history.size() - 1, -1, -1):
 					if input_history[i] == key:
 						var curr_attack = current_attack.nextCombo[key]
@@ -273,9 +268,9 @@ func handleAttack() -> void:
 					if input_history[i] == current_attack.input:
 						comboLate= true
 						break
-		if timeRatio >= 1:
-			attacking = false
-			comboLate = false
+		#if timeRatio >= 1:
+			#attacking = false
+			#comboLate = false
 		speedAdd = current_attack.speedAdd
 		velocity.y = velocity.y + current_attack.hop
 	else:
@@ -864,6 +859,9 @@ func _on_animation_finished(anim_name: String) -> void:
 	if TRANSITIONS.has(current_state) and TRANSITIONS[current_state]["clip"] == anim_name:
 		var info = TRANSITIONS[current_state]
 		_enter_state(info["target"])
+	if attacking:
+		attacking = false
+		comboLate = false
  
  
 # Lands the state machine in a stable (non-transitional) state and plays

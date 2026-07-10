@@ -5,12 +5,14 @@
 
 [resource]
 script = ExtResource("1_ej8gb")
+attackID = 0
 description = "One-arm vertical club"
 is_unlocked = false
 attack_class = 1
 knockback = 3.0
 is_launcher = false
 speedAdd = 0
+hop = 0
 range = Array[float]([1.5])
 input = 16
 nextCombo = {

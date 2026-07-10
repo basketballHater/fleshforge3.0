@@ -217,12 +217,17 @@ func mapDataToCache(data:Dictionary, cache:Dictionary, char:CharacterBody3D):
 			if attack is AttackData:
 				var anim: Animation = char.animPlayer.get_animation(attack.animation_name)
 				if anim:
+					var totalTime = anim.length
 					for i in range(attack.impactFrames.size()):
 						var frameRatio = float(attack.impactFrames[i])/ float(attack.totalFrames) 
-						var totalTime = anim.length
+						attack.impactTime.append(frameRatio * totalTime)
 						hurtboxSet(char, attack, frameRatio, totalTime, i)
 						if attack.slot != FFItemData.itemClass.SPECIAL:
 							hitboxSet(char, attack, frameRatio, totalTime, i)
+					if attack.chainFrame != 0:
+						var comboframeRatio = float(attack.chainFrame)/ float(attack.totalFrames)
+						attack.comboTime = comboframeRatio * totalTime
+						
 				cache[key] = attack
 				
 				print("cached: ", key, " → ", attack.item_name)

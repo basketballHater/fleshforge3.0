@@ -63,7 +63,7 @@ extends Camera3D
 func _ready():
 	pass
 
-func _process(delta):
+func _physics_process(delta):
 	if Physics.characterDiff > 5.0:
 		if(Physics.characterDiff < 7.5):
 			size = (Physics.characterDiff*0.8*4)

@@ -22,6 +22,7 @@ class HitboxSnapshot:
 
 @export var animation_name: String = ""
 @export var impactFrames: Array[int]
+
 @export var totalFrames: int = 25
 var hitbox_snapshots: Array = []
 
