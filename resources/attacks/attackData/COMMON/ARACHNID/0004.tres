@@ -4,12 +4,14 @@
 
 [resource]
 script = ExtResource("1_uko0n")
+attackID = 0
 description = "Crawl Back"
 is_unlocked = false
 attack_class = 9
 knockback = 0.0
 is_launcher = false
 speedAdd = -12
+hop = 0.0
 range = Array[float]([0.5])
 input = 136
 nextCombo = {}
@@ -17,7 +19,7 @@ chainFrame = 0
 attackStart = Array[int]([])
 attackEnd = Array[int]([])
 attackLimb = Array[int]([])
-attackType = Array[int]([0])
+attackType = Array[int]([])
 is_special = false
 preliminary_input = 0
 animation_name = "arachnid_backward_4"

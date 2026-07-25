@@ -9,7 +9,6 @@ var opponent: int
 
 # ─── Movement State ─────────────────────────────────────────────────────────
 var direction := 0.0
-var facing: int
 var target_rot_y: float
 var onfloor := false
 var crouching := false
@@ -21,6 +20,8 @@ var momentum: float = 0.0
 var speedFactor: float
 var speedAdd: float
 var specialCount := 0
+var facing
+var jumpSpeed: float
 
 # ─── Input Action Names ─────────────────────────────────────────────────────
 var left: String
@@ -71,6 +72,9 @@ var waitingCol: bool = false
 var comboLate: bool = false 
 var startedMoving: bool = false
 var specialAttackSet: bool = false
+var hit:bool = false
+var hitString:String = ''
+var recString:String = ''
 
 var debug:String
 var debug1:String
@@ -101,6 +105,8 @@ var current_anim: String = ""
 var walkingAnimF:String = ""
 var walkingAnimB:String = ""
 
+var projectileArray: Array[Projectile]
+
 # ════════════════════════════════════════════════════════════════════════════
 # Lifecycle
 # ════════════════════════════════════════════════════════════════════════════
@@ -121,6 +127,8 @@ enum State {
 	CROUCH_BLOCK_IDLE,
 	JUMP_RISE,
 	JUMP_FALL,
+	HIT,
+	HIT_R
 }
  
 # Describes each reversible transition: which clip plays it, and what state
@@ -134,6 +142,8 @@ const TRANSITIONS := {
 	State.CROUCH_BLOCK_TRANS1_R: {"clip": "crouchBlock1", "base": State.CROUCH_BLOCK_IDLE, "target": State.CROUCH_IDLE, "direction": -1},
 	State.CROUCH_BLOCK_TRANS2: {"clip": "crouchBlock2", "base": State.BLOCK_IDLE, "target": State.CROUCH_BLOCK_IDLE, "direction": 1},
 	State.CROUCH_BLOCK_TRANS2_R: {"clip": "crouchBlock2", "base": State.CROUCH_BLOCK_IDLE, "target": State.BLOCK_IDLE, "direction": -1},
+	State.HIT: {"clip": "", "base": State.HIT, "target": State.HIT_R, "direction": 1},
+	State.HIT_R: {"clip": "", "base": State.HIT, "target": State.IDLE, "direction": 1},
 }
  
 var current_state: State = State.IDLE
@@ -171,10 +181,17 @@ func setup() -> void:
 	hurtboxBody.collision_mask = opponent
 	hurtboxMachine.collision_mask = opponent
 	hitbox.collision_mask = opponent
+	collision_layer = 0
+	collision_mask = 0
+	#set_collision_layer_value(5, true)
+	#set_collision_layer_value(2 + playerNum, true)
+	set_collision_mask_value(5, true)
+	#set_collision_mask_value(2 + opponent, true)
+	print("CHar charac ",playerNum,"coll layer ",collision_layer,"coll mask ",collision_mask)
 	hurtboxBody.monitoring = false
 	hurtboxMachine.monitoring = false
-	hurtboxBody.monitorable = false
-	hurtboxMachine.monitorable = false
+	hurtboxBody.monitorable = true
+	hurtboxMachine.monitorable = true
 	#hitbox.monitorable = true
 	#print(playerNum,"SETUP CALLED")
 	#print(name, " setup — animPlayer: ", animPlayer, " skeleton: ", skeleton)
@@ -202,7 +219,7 @@ func _physics_process(delta: float) -> void:
 	#handle_Animation()
 	
 
-	velocity.x = direction * speed * speedFactor + speedAdd * facing + momentum
+	velocity.x = direction * speed * speedFactor + speedAdd* facing + momentum + jumpSpeed
 	#print('vhhggbbg',speed)
 
 	handleCollision()
@@ -236,24 +253,31 @@ func handleAttack() -> void:
 		
 		var currImpactTime = animPlayer.get_current_animation_position()
 		
-		for i in current_attack.impactFrames.size():
-			if not impact_triggered[i] and current_attack.impactTime[i] < currImpactTime:
-				impact_triggered[i] = true
-				headCol.transform = current_attack.hitbox_snapshots[i].headCol_transform
-				torsoCol.transform = current_attack.hitbox_snapshots[i].torsoCol_transform
-				abdomenCol.transform = current_attack.hitbox_snapshots[i].abdomenCol_transform
-				upperArm_L_Col.transform = current_attack.hitbox_snapshots[i].upperArm_L_Col_transform
-				upperArm_R_Col.transform = current_attack.hitbox_snapshots[i].upperArm_R_Col_transform
-				lowerArm_L_Col.transform = current_attack.hitbox_snapshots[i].lowerArm_L_Col_transform
-				lowerArm_R_Col.transform = current_attack.hitbox_snapshots[i].lowerArm_R_Col_transform
-				upperLeg_L_Col.transform = current_attack.hitbox_snapshots[i].upperLeg_L_Col_transform
-				upperLeg_R_Col.transform = current_attack.hitbox_snapshots[i].upperLeg_R_Col_transform
-				lowerLeg_L_Col.transform = current_attack.hitbox_snapshots[i].lowerLeg_L_Col_transform
-				lowerLeg_R_Col.transform = current_attack.hitbox_snapshots[i].lowerLeg_R_Col_transform
-				Main.transform = current_attack.hitbox_snapshots[i].hitbox
-				Main.shape.radius = current_attack.hitbox_snapshots[i].hitbox_radius
-				Main.shape.height = current_attack.hitbox_snapshots[i].hitbox_height
-				ifImpact = true
+		for i in current_attack.attackType.size():
+			if current_attack.attackType[i] == AttackData.Type.PHISYCAL:
+				if not impact_triggered[i] and current_attack.impactTime[i] < currImpactTime:
+					impact_triggered[i] = true
+					headCol.transform = current_attack.hitbox_snapshots[i].headCol_transform
+					torsoCol.transform = current_attack.hitbox_snapshots[i].torsoCol_transform
+					abdomenCol.transform = current_attack.hitbox_snapshots[i].abdomenCol_transform
+					upperArm_L_Col.transform = current_attack.hitbox_snapshots[i].upperArm_L_Col_transform
+					upperArm_R_Col.transform = current_attack.hitbox_snapshots[i].upperArm_R_Col_transform
+					lowerArm_L_Col.transform = current_attack.hitbox_snapshots[i].lowerArm_L_Col_transform
+					lowerArm_R_Col.transform = current_attack.hitbox_snapshots[i].lowerArm_R_Col_transform
+					upperLeg_L_Col.transform = current_attack.hitbox_snapshots[i].upperLeg_L_Col_transform
+					upperLeg_R_Col.transform = current_attack.hitbox_snapshots[i].upperLeg_R_Col_transform
+					lowerLeg_L_Col.transform = current_attack.hitbox_snapshots[i].lowerLeg_L_Col_transform
+					lowerLeg_R_Col.transform = current_attack.hitbox_snapshots[i].lowerLeg_R_Col_transform
+					Main.transform = current_attack.hitbox_snapshots[i].hitbox
+					Main.shape.radius = current_attack.hitbox_snapshots[i].hitbox_radius
+					Main.shape.height = current_attack.hitbox_snapshots[i].hitbox_height
+					ifImpact = true
+			elif current_attack.attackType[i] == AttackData.Type.PROJECTILE:
+				if not impact_triggered[i] and current_attack.impactTime[i] < currImpactTime:
+					var projectile = projectileArray[current_attack.projectileNum]
+					projectile.launch(transform)
+					impact_triggered[i] = true
+					print('sending projectile')
 		for key in current_attack.nextCombo:
 			if !comboLate and current_attack.comboTime < currImpactTime:
 				for i in range(input_history.size() - 1, -1, -1):
@@ -297,7 +321,7 @@ func handleAttack() -> void:
 			if curr_attack.hop != 0:
 				if velocity.y > 10 or velocity.y < 0:
 					return
-
+			animPlayer.stop()
 			animPlayer.play(curr_attack.animation_name)
 			current_attack = curr_attack
 			attacking = true
@@ -314,9 +338,11 @@ func handleAttack() -> void:
 	if L1Pressed:
 		animPlayer.speed_scale = 1.0
 
+
+
 func handleDefence():
 	var anim_name = animPlayer.current_animation
-	#print("GAYSEX", anim_name)
+	print("GAYSEX", anim_name)
 	if "_" in anim_name:
 		return
 	if anim_name == '':
@@ -332,6 +358,7 @@ func handleDefence():
 	upperLeg_R_Col.transform = movement_cache[anim_name].hitbox_snapshots[0].upperLeg_R_Col_transform
 	lowerLeg_L_Col.transform = movement_cache[anim_name].hitbox_snapshots[0].lowerLeg_L_Col_transform
 	lowerLeg_R_Col.transform = movement_cache[anim_name].hitbox_snapshots[0].lowerLeg_R_Col_transform
+	print('fafahh',movement_cache)
 
 func get_bone_transform(bone_name: String) -> Transform3D:
 	var bone_idx = skeleton.find_bone(bone_name)
@@ -416,6 +443,7 @@ func build_attacker_hurtboxes(impactTime:float, animation_name:String) -> void:
 	 #seek to exact impact frame to sample bone positions
 	animPlayer.play(animation_name)
 	animPlayer.seek(impactTime, true)
+	print("BUILT ur ASS",animation_name)
 	build_hurttboxes()
 	#animPlayer.seek(currImpactTime, true)
 	# restore animation position
@@ -540,19 +568,19 @@ func _update_facing(delta: float) -> void:
 		target_rot_y = deg_to_rad(270)
 		new_z = 0.2
 		new_facing = -1
-
-	if new_facing != facing:
-		facing = new_facing
-		position.z = new_z  # only touch the transform on an actual side-swap
+	
+	#position.z = new_z  # only touch the transform on an actual side-swap
 
 	#rotation.y = lerp_angle(rotation.y, target_rot_y, 8.0 * delta)
-	rotation.y = target_rot_y
+	if facing != new_facing:
+		rotation.y = target_rot_y
+		facing = new_facing
 
 
 func _update_movement() -> void:
 	direction = 0.0
 	
-	if crouchPressed or R1Pressed or attacking:
+	if crouchPressed or R1Pressed or attacking or !onfloor:
 		return
 
 	if leftPressed:
@@ -560,8 +588,22 @@ func _update_movement() -> void:
 	elif rightPressed:
 		direction += 1.0
 
-	if not onfloor:
-		speedFactor = 3
+	#if not onfloor:
+		#if speedAdd == 0:
+			#if forwardPressed:
+				#speedAdd = 20 *direction
+			#else:
+				#speedAdd = 20 * direction
+		#direction = 0
+	#else: 
+		#speedAdd = 0
+	#if not onfloor:
+		#if momentum == 0:
+			#if forwardPressed:
+				#momentum = 20 *direction
+			#else:
+				#momentum = 20 * direction
+		#direction = 0
 
 
 func _apply_gravity(delta: float) -> void:
@@ -572,8 +614,9 @@ func _apply_gravity(delta: float) -> void:
 		var was_airborne = not onfloor
 		onfloor    = true
 		velocity.y = 0.0
+		jumpSpeed = 0
 		_decay_momentum()
-		if was_airborne:
+		if was_airborne and !attacking:
 			_enter_state(State.IDLE)
 
 func _decay_momentum() -> void:
@@ -586,6 +629,12 @@ func _decay_momentum() -> void:
 func handle_jump() -> void:
 	if jumpPressed and onfloor and not crouching:
 		velocity.y = jump_force
+		if forwardPressed:
+			jumpSpeed = 20 *direction
+		else:
+			jumpSpeed = 20 * direction
+
+
 
 # ════════════════════════════════════════════════════════════════════════════
 # Collision
@@ -703,21 +752,41 @@ func _handle_grounded_transitions() -> void:
 				_enter_state(State.WALK_FORWARD)
 			elif backwardPressed:
 				_enter_state(State.WALK_BACKWARD)
+			else:
+				_enter_state(State.IDLE)
  
 		State.WALK_FORWARD:
+			#if crouchPressed:
+				#_start_transition(State.CROUCH_TRANS, 1)
+			#elif R1Pressed:
+				#_start_transition(State.BLOCK_TRANS, 1)
+			#elif not forwardPressed:
+				#_enter_state(State.IDLE)
+			
 			if crouchPressed:
 				_start_transition(State.CROUCH_TRANS, 1)
 			elif R1Pressed:
 				_start_transition(State.BLOCK_TRANS, 1)
-			elif not forwardPressed:
+			elif forwardPressed:
+				_enter_state(State.WALK_FORWARD)
+			else:
 				_enter_state(State.IDLE)
  
 		State.WALK_BACKWARD:
+			#if crouchPressed:
+				#_start_transition(State.CROUCH_TRANS, 1)
+			#elif R1Pressed:
+				#_start_transition(State.BLOCK_TRANS, 1)
+			#elif not backwardPressed:
+				#_enter_state(State.IDLE)
+
 			if crouchPressed:
 				_start_transition(State.CROUCH_TRANS, 1)
 			elif R1Pressed:
 				_start_transition(State.BLOCK_TRANS, 1)
-			elif not backwardPressed:
+			elif backwardPressed:
+				_enter_state(State.WALK_BACKWARD)
+			else:
 				_enter_state(State.IDLE)
  
 		# --- crouch ---
@@ -738,6 +807,8 @@ func _handle_grounded_transitions() -> void:
 				_start_transition(State.CROUCH_TRANS_R, 1)
 			elif R1Pressed:
 				_start_transition(State.CROUCH_BLOCK_TRANS1, 1)
+			else:
+				_enter_state(State.CROUCH_IDLE)
 		
 		State.BLOCK_TRANS_R:
 			if not R1Pressed:
@@ -757,6 +828,8 @@ func _handle_grounded_transitions() -> void:
 				_start_transition(State.BLOCK_TRANS_R, 1)
 			elif crouchPressed:
 				_start_transition(State.CROUCH_BLOCK_TRANS2, 1)
+			else:
+				_enter_state(State.BLOCK_IDLE)
  
 		# --- crouch+block combined ---
 		State.CROUCH_BLOCK_TRANS1:
@@ -788,13 +861,20 @@ func _handle_grounded_transitions() -> void:
 			elif not crouchPressed:
 				crouching = false
 				_start_transition(State.CROUCH_BLOCK_TRANS2_R, 1)   # -> blockIdle
+			else:
+				_enter_state(State.CROUCH_BLOCK_IDLE)
+		State.JUMP_FALL:
+			_enter_state(State.IDLE)
+		State.JUMP_RISE:
+			_enter_state(State.IDLE)
+			
  
  
 # ---------------------------------------------------------------------------
 # JUMP HANDLING (continuous, velocity-driven rather than discrete toggle)
 # ---------------------------------------------------------------------------
  
-func _handle_jump() -> void:
+func _handle_jump() -> void:	
 	if velocity.y > 0:
 		if current_state != State.JUMP_RISE:
 			current_state = State.JUMP_RISE
@@ -856,17 +936,18 @@ func _start_transition(state: State, direction: int) -> void:
  
 func _on_animation_finished(anim_name: String) -> void:
 	#print('FINISHED YOU MOM: ',anim_name, transition_direction)
-	if TRANSITIONS.has(current_state) and TRANSITIONS[current_state]["clip"] == anim_name:
-		var info = TRANSITIONS[current_state]
-		_enter_state(info["target"])
 	if attacking:
 		attacking = false
 		comboLate = false
  
+	if TRANSITIONS.has(current_state):
+		var info = TRANSITIONS[current_state]
+		_enter_state(info["target"], true)
+
  
 # Lands the state machine in a stable (non-transitional) state and plays
 # its idle/loop clip. This is also where "reached idle -> flag = true" lives.
-func _enter_state(state: State) -> void:
+func _enter_state(state: State, isTrans:bool = false) -> void:
 	current_state = state
 	match state:
 		State.IDLE:
@@ -874,13 +955,17 @@ func _enter_state(state: State) -> void:
 			animPlayer.play("idle")
 		State.WALK_FORWARD:
 			animPlayer.speed_scale = 1.0
+			#animPlayer.play(walkingAnimF)
 			animPlayer.play(walkingAnimF)
+			#animPlayer.play("walkingF")
 		State.WALK_BACKWARD:
 			animPlayer.speed_scale = 1.0
 			animPlayer.play(walkingAnimB)
+			#animPlayer.play(walkingAnimB)
 		State.CROUCH_IDLE:
 			crouching = true
 			animPlayer.speed_scale = 1.0
+			#animPlayer.play("crouchIdle")
 			animPlayer.play("crouchIdle")
 		State.BLOCK_IDLE:
 			blocking = true
@@ -891,6 +976,17 @@ func _enter_state(state: State) -> void:
 			blocking = true
 			animPlayer.speed_scale = 1.0
 			animPlayer.play("crouchBlockIdle")
+		State.HIT:
+			animPlayer.speed_scale = 1.0
+			animPlayer.play(hitString)
+		State.HIT_R:
+			animPlayer.speed_scale = 1.0
+			animPlayer.play(recString)
+		
+			
+	if isTrans:
+		handleDefence()
+		print('FMLURGAY',animPlayer.current_animation)
 
 # ════════════════════════════════════════════════════════════════════════════
 # Attack state

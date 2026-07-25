@@ -4,26 +4,24 @@
 
 [resource]
 script = ExtResource("1_jvafw")
+attackID = 0
 description = "Two-handed overhead smash, guard break"
 is_unlocked = false
 attack_class = 1
-hitstun_frames = 14
-blockstun_frames = 8
 knockback = 5.0
 is_launcher = false
-animation_fps = 30.0
 speedAdd = 0
+hop = 0
 range = Array[float]([1.5])
 input = 32
 nextCombo = {}
 chainFrame = 0
-startupFrames = 6
 attackStart = Array[int]([6])
 attackEnd = Array[int]([9])
 attackLimb = Array[int]([0])
-recoveryFrames = 13
-required_stance = "any"
-required_meter = 0.0
+attackType = Array[int]([0])
+is_special = false
+preliminary_input = 0
 animation_name = "hammer_2"
 impactFrames = Array[int]([7])
 totalFrames = 20

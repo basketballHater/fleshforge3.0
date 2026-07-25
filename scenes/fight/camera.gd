@@ -55,20 +55,47 @@
 #
 	#if input_dir != Vector3.ZERO:
 		#global_position += input_dir.normalized() * speed * delta
-	#
+	
 	
 
 extends Camera3D
 @export var follow_speed: float = 5.0
+var toggle: bool
 func _ready():
 	pass
 
+#func _physics_process(delta):
+	#if Physics.characterDiff > 5.0:
+		#if(Physics.characterDiff < 7.5):
+			#size = (Physics.characterDiff*0.8*4)
+	#else:size = 16
+#
+	#var desired_pos := global_position
+	#desired_pos.x = Physics.midP
+	#global_position = global_position.lerp(desired_pos, follow_speed * delta)
+	
 func _physics_process(delta):
-	if Physics.characterDiff > 5.0:
-		if(Physics.characterDiff < 7.5):
-			size = (Physics.characterDiff*0.8*4)
-	else:size = 16
+	if Physics.characterDiff > 20:
+		if(Physics.characterDiff < 40):
+			size = (17 + (Physics.characterDiff - 20)*0.7)
+	else:size = 17
+	
+	if Input.is_key_pressed(KEY_SPACE):
+		toggle = !toggle
 
-	var desired_pos := global_position
-	desired_pos.x = Physics.midP
-	global_position = global_position.lerp(desired_pos, follow_speed * delta)
+	if toggle:
+		var desired_pos := global_position
+		desired_pos.x = Physics.midP
+		desired_pos.z = 0
+		desired_pos.y = 10
+		look_at(global_position + Vector3.DOWN)
+		
+		global_position = desired_pos
+	else:
+		var desired_pos := global_position
+		desired_pos.x = Physics.midP
+		desired_pos.y= 1
+		desired_pos.z = 24
+		look_at(global_position + Vector3.DOWN)
+		global_position = global_position.lerp(desired_pos, follow_speed * delta)
+		look_at(global_position + Vector3.FORWARD)

@@ -27,7 +27,6 @@ script = ExtResource("2_2sgx1")
 
 [node name="player1" parent="." instance=ExtResource("3_wcevn")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -9.8, 0, -14.2)
-jump_force = 30.0
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -56,11 +55,11 @@ offset_bottom = 536.0
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1.8, 0, 1.8)
-collision_layer = 4
-collision_mask = 4
+collision_layer = 16
+collision_mask = 16
 
 [node name="MeshInstance3D2" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(64.5, 0, -2.27374e-13, 0, 64.5, 0, 2.27374e-13, 0, 64.5, -27, -34, 4.76837e-07)
+transform = Transform3D(64.5, 0, -2.27374e-13, 0, 64.5, 0, 2.27374e-13, 0, 64.5, -27, -39, 4.76837e-07)
 shape = SubResource("BoxShape3D_wra2d")
 
 [node name="A" type="MeshInstance3D" parent="."]

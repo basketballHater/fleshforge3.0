@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="FFOutfitTopData" load_steps=2 format=3 uid="uid://b1bpbe5beirnn"]
+
+[ext_resource type="Script" uid="uid://cyoub2r48vfx4" path="res://resources/items/FFOutfitTopData.gd" id="1_vls17"]
+
+[resource]
+script = ExtResource("1_vls17")
+gender = "male"
+item_id = "male1"
+item_name = "Savage"
+slot = 5
+metadata/_custom_type_script = "uid://dk1owc5v1a6p7"

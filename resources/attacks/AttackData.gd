@@ -19,7 +19,7 @@ enum limb{arm_L, arm_R, leg_L, leg_R, back_TL, back_TR, back_BL, back_BR, knee_L
 @export var is_launcher: bool = false          # pops opponent into the ai
 
 @export var speedAdd: int = 12
-@export var hop: int = 0
+@export var hop: float = 0
 @export var range: Array[float] = [0.5]
 
 @export var input: int
@@ -42,6 +42,9 @@ enum limb{arm_L, arm_R, leg_L, leg_R, back_TL, back_TR, back_BL, back_BR, knee_L
 
 var impactTime: Array[float]
 var comboTime: float
+var projectileNum: int
+
+@export var projectile_data: ProjectileData
 
 
 func get_res_path() -> String:

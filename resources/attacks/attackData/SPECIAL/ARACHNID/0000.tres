@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="AttackData" load_steps=2 format=3 uid="uid://da88g1onfwcnd"]
+[gd_resource type="Resource" script_class="AttackData" load_steps=3 format=3 uid="uid://da88g1onfwcnd"]
 
 [ext_resource type="Script" uid="uid://chotp76denwcv" path="res://resources/attacks/AttackData.gd" id="1_ha1p3"]
+[ext_resource type="Resource" uid="uid://cmcrta7ec6gn8" path="res://resources/attacks/attackData/PROJECTILES/WEBS/WEB_0001.tres" id="1_rjqjc"]
 
 [resource]
 script = ExtResource("1_ha1p3")
@@ -18,10 +19,11 @@ nextCombo = {}
 chainFrame = 0
 attackStart = Array[int]([])
 attackEnd = Array[int]([])
-attackLimb = Array[int]([])
-attackType = Array[int]([0])
+attackLimb = Array[int]([6])
+attackType = Array[int]([1])
 is_special = true
 preliminary_input = 8
+projectile_data = ExtResource("1_rjqjc")
 animation_name = "arachnid_special_1"
 impactFrames = Array[int]([7])
 totalFrames = 20

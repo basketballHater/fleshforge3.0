@@ -4,26 +4,24 @@
 
 [resource]
 script = ExtResource("1_86xfd")
+attackID = 0
 description = "Full run-up double hammer swing"
 is_unlocked = false
 attack_class = 1
-hitstun_frames = 14
-blockstun_frames = 8
 knockback = 5.0
 is_launcher = false
-animation_fps = 30.0
 speedAdd = 10
+hop = 0
 range = Array[float]([0.7, 0.8])
 input = 36
 nextCombo = {}
 chainFrame = 0
-startupFrames = 7
 attackStart = Array[int]([5, 12])
 attackEnd = Array[int]([8, 16])
 attackLimb = Array[int]([0, 1])
-recoveryFrames = 10
-required_stance = "any"
-required_meter = 0.0
+attackType = Array[int]([0, 0])
+is_special = false
+preliminary_input = 0
 animation_name = "hammer_forward_2"
 impactFrames = Array[int]([8, 13])
 totalFrames = 22

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ProjectileData" load_steps=3 format=3 uid="uid://cmcrta7ec6gn8"]
+
+[ext_resource type="PackedScene" uid="uid://cvxlh5paemt37" path="res://resources/attacks/attackData/PROJECTILES/WEBS/WEB_0001.tscn" id="1_cv8h5"]
+[ext_resource type="Script" uid="uid://cixqucc6bgli0" path="res://resources/items/FFprojectileData.gd" id="1_h2jca"]
+
+[resource]
+script = ExtResource("1_h2jca")
+velocity = 50.0
+lifetime = 3.0
+attack_limb = 6
+mesh = ExtResource("1_cv8h5")
+radius = 0.5
+height = 1.5
+isHeavy = true
+knockback = 3
+metadata/_custom_type_script = "uid://cixqucc6bgli0"

@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cq33rh4o5e0g2"
-path="res://.godot/imported/1.glb-94dd2bc3b3e0e65fec0fa8d7d49a440f.scn"
+uid="uid://capbb83vvfcwn"
+path="res://.godot/imported/female1.glb-772da1601af1560d9f583f353bc7003e.scn"
 
 [deps]
 
-source_file="res://assets/clothes/male/tops/1.glb"
-dest_files=["res://.godot/imported/1.glb-94dd2bc3b3e0e65fec0fa8d7d49a440f.scn"]
+source_file="res://assets/clothes/female/tops/female1.glb"
+dest_files=["res://.godot/imported/female1.glb-772da1601af1560d9f583f353bc7003e.scn"]
 
 [params]
 

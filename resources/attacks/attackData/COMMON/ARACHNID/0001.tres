@@ -4,13 +4,14 @@
 
 [resource]
 script = ExtResource("1_5sfpb")
+attackID = 0
 description = ""
 is_unlocked = false
 attack_class = 9
 knockback = 2.0
 is_launcher = false
 speedAdd = 0
-hop = 0
+hop = 0.0
 range = Array[float]([1.5, 1.5, 1.5])
 input = 72
 nextCombo = {}

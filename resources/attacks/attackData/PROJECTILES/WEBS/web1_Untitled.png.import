@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dqfqx6d45evdd"
-path.s3tc="res://.godot/imported/1_maleShirt2.png-de9bcbbf78db6d415c9600916935fcb9.s3tc.ctex"
+uid="uid://cbnh8qft04a68"
+path.s3tc="res://.godot/imported/web1_Untitled.png-d2df4b5c626971b75f2b99e7f5f0599e.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "83e48237be461cc4127345933d67b982"
+"md5": "9a889e1f7abc9d75c66eecfda4fd9e33"
 }
 
 [deps]
 
-source_file="res://assets/clothes/male/tops/1_maleShirt2.png"
-dest_files=["res://.godot/imported/1_maleShirt2.png-de9bcbbf78db6d415c9600916935fcb9.s3tc.ctex"]
+source_file="res://resources/attacks/attackData/PROJECTILES/WEBS/web1_Untitled.png"
+dest_files=["res://.godot/imported/web1_Untitled.png-d2df4b5c626971b75f2b99e7f5f0599e.s3tc.ctex"]
 
 [params]
 

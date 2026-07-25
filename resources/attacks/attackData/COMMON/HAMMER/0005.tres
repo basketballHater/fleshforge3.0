@@ -4,26 +4,24 @@
 
 [resource]
 script = ExtResource("1_wkxxp")
+attackID = 0
 description = "Both hands, full drop from apex"
 is_unlocked = false
 attack_class = 1
-hitstun_frames = 14
-blockstun_frames = 8
 knockback = 5.0
 is_launcher = true
-animation_fps = 30.0
 speedAdd = 0
+hop = 0
 range = Array[float]([1.2])
 input = 4128
 nextCombo = {}
 chainFrame = 0
-startupFrames = 12
 attackStart = Array[int]([6])
 attackEnd = Array[int]([13])
 attackLimb = Array[int]([1])
-recoveryFrames = 7
-required_stance = "any"
-required_meter = 0.0
+attackType = Array[int]([0])
+is_special = false
+preliminary_input = 0
 animation_name = "hammer_jump_2"
 impactFrames = Array[int]([13])
 totalFrames = 22

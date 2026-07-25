@@ -15,6 +15,8 @@ extends Node
 @onready var A: MeshInstance3D = $A
 @onready var B: MeshInstance3D = $B
 
+@onready var W: StaticBody3D = $StaticBody3D
+
 var timer : int = 0
 
 
@@ -23,6 +25,7 @@ var timer : int = 0
 func _ready() -> void:
 	spawn_characters()
 	back.pressed.connect(on_back)
+	print("W charac ","coll layer ",W.collision_layer,"coll mask ",W.collision_mask)
 	
 
 func _physics_process(delta):
@@ -46,7 +49,7 @@ func _physics_process(delta):
 		#print("build_hitboxes NOT HIT took ", (end - start) / 1000.0, " ms")
 	#label.text = "input1:"+str(char1.input_history[0])+" "+"inputArray:"+str(char1.input_history)+" "+"input2:"+str(char2.input_history[0])
 	if char1.current_attack:
-		label1.text = "char1 hurtboxBody morinoring: "+str(char1.hurtboxBody.monitoring)+"\n "+"char1 hurtboxBody monitorable: "+str(char1.hurtboxBody.monitorable)+"\n "+"char1 hurtboxMachine morinoring: "+str(char1.hurtboxMachine.monitoring)+"\n "+"char1 hurtboxMachine monitorable: "+str(char1.hurtboxMachine.monitorable)+"\n "+"char1 hitbox monitoring: "+str(char1.hitbox.monitoring)+"\n "+"char1 hitbox monitorable: "+str(char1.hitbox.monitorable)+"\n "+"char1 ifImpact: "+str(char1.ifImpact)+"\n "+"char1 waitingCol: "+str(char1.waitingCol)+"\n "+"char1 hit: "+str(char1.hitBody)+"\n "+"char1 comboLate: "+str(char1.comboLate)+"\n "+"char1 crouching: "+str(char1.crouching)+"\n "+"char1 Attacking: "+str(char1.attacking)
+		label1.text = "char1 hurtboxBody morinoring: "+str(char1.hurtboxBody.monitoring)+"\n "+"char1 hurtboxBody monitorable: "+str(char1.hurtboxBody.monitorable)+"\n "+"char1 hurtboxMachine morinoring: "+str(char1.hurtboxMachine.monitoring)+"\n "+"char1 hurtboxMachine monitorable: "+str(char1.hurtboxMachine.monitorable)+"\n "+"char1 hitbox monitoring: "+str(char1.hitbox.monitoring)+"\n "+"char1 hitbox monitorable: "+str(char1.hitbox.monitorable)+"\n "+"char1 ifImpact: "+str(char1.ifImpact)+"\n "+"char1 waitingCol: "+str(char1.waitingCol)+"\n "+"char1 hit: "+str(char1.hitBody)+"\n "+"char1 comboLate: "+str(char1.comboLate)+"\n "+"char1 crouching: "+str(char1.crouching)+"\n "+"char1 Attacking: "+str(char1.attacking)+"\n "+"char1 State: "+str(char1.current_state)
 	label2.text = "char2 hurtboxBody morinoring: "+str(char2.hurtboxBody.monitoring)+"\n "+"char2 hurtboxBody monitorable: "+str(char2.hurtboxBody.monitorable)+"\n "+"char2 hurtboxMachine morinoring: "+str(char2.hurtboxMachine.monitoring)+"\n "+"char2 hurtboxMachine monitorable: "+str(char2.hurtboxMachine.monitorable)+"\n "+"char2 hitbox monitoring: "+str(char2.hitbox.monitoring)+"\n "+"char2 hitbox monitorable: "+str(char2.hitbox.monitorable)+"\n "+"char2 ifImpact: "+str(char2.ifImpact)+"\n "+"char2 waitingCol: "+str(char2.waitingCol)+"\n "+"char2 hit: "+str(char2.hitBody)
 	
 func physicsManager():
@@ -73,12 +76,17 @@ func attackManager(attacker:CharacterBody3D, defender:CharacterBody3D) ->void:
 		var start = Time.get_ticks_usec()
 		if attacker.current_attack.is_launcher:
 			defender.animPlayer.stop()
-			defender.animPlayer.play("bigHitStun")
-			defender.animPlayer.queue("bigHitRecover")
+			defender.hitString = 'bigHitStun'
+			defender.recString = 'bigHitRecover'
+			#defender.animPlayer.play("bigHitStun")
+			#defender.animPlayer.queue("bigHitRecover")
 		else:
 			defender.animPlayer.stop()
-			defender.animPlayer.play("smallHitStun")
-			defender.animPlayer.queue("smallHitRecover")
+			defender.hitString = 'smallHitStun'
+			defender.recString = 'smallHitRecover'
+			#defender.animPlayer.play("smallHitStun")
+			#defender.animPlayer.queue("smallHitRecover")
+		defender._enter_state(female_rapid.State.HIT)
 		if Physics.left == 1:
 			defender.momentum = attacker.current_attack.knockback
 		else:
@@ -87,7 +95,6 @@ func attackManager(attacker:CharacterBody3D, defender:CharacterBody3D) ->void:
 		attacker.hitbox.monitorable = false
 		defender.hurtboxBody.monitoring = false
 		defender.hurtboxMachine.monitoring = false
-		#defender.hurtbox.monitoring = false
 		
 		defender.hitBody = false
 		defender.hitMachine = false
@@ -173,6 +180,7 @@ func _build_attack_cache(char:CharacterBody3D) -> void:
 	elif data.leg_class == 1:
 		char.walkingAnimF = 'rollingF'
 		char.walkingAnimB = 'rollingB'
+	print("GREAHH",char.walkingAnimF)
 
 	mapDataToCache(data.attack_map, char.attack_cache, char)
 	mapDataToCache(data.combo_map, char.combo_cache, char)
@@ -199,7 +207,8 @@ func _build_attack_cache(char:CharacterBody3D) -> void:
 		#anim.loop_mode = Animation.LOOP_LINEAR
 		var totalTime = anim.length
 		var snapshot = MovementData.new()
-		hurtboxSet(char, snapshot, totalTime/2, totalTime, 0)
+		snapshot.animation_name = anim_name
+		hurtboxSet(char, snapshot, 0.5, totalTime, 0)
 		char.movement_cache[anim_name] = snapshot
 		
 
@@ -224,6 +233,22 @@ func mapDataToCache(data:Dictionary, cache:Dictionary, char:CharacterBody3D):
 						hurtboxSet(char, attack, frameRatio, totalTime, i)
 						if attack.slot != FFItemData.itemClass.SPECIAL:
 							hitboxSet(char, attack, frameRatio, totalTime, i)
+						elif attack.attackType[i] == AttackData.Type.PROJECTILE: #All projectile attacks are special
+							frameRatio = float(attack.impactFrames[i])/ float(attack.totalFrames) 
+							char.animPlayer.play(attack.animation_name)
+							char.animPlayer.seek(frameRatio*totalTime, true)
+							var proj = attack.projectile_data.mesh.instantiate() as Projectile
+							char.get_tree().current_scene.add_child(proj)
+							var localTransform = get_bone_transform(attack, char, i, true)
+							var globalTransform = get_bone_transform(attack, char, i)
+							print("GAYCHILDREN LOCAL",localTransform)
+							print("GAYCHILDREN GLOBAL",globalTransform)
+							proj.transform = globalTransform
+							attack.projectile_data.localspawnLoc = localTransform
+							proj.setup(attack.projectile_data, char.playerNum)
+							char.projectileArray.append(proj)
+							var num = char.projectileArray.size()
+							attack.projectileNum = num -1
 					if attack.chainFrame != 0:
 						var comboframeRatio = float(attack.chainFrame)/ float(attack.totalFrames)
 						attack.comboTime = comboframeRatio * totalTime
@@ -267,7 +292,7 @@ func hitboxSet(char:CharacterBody3D,attack: AttackData, frameRatio: float, total
 	attack.hitbox_snapshots[i].hitbox_radius = char.Main.shape.radius
 	attack.hitbox_snapshots[i].hitbox_height = char.Main.shape.height
 
-func get_bone_transform(attack:AttackData, char:CharacterBody3D, limbNum:int):
+func get_bone_transform(attack:AttackData, char:CharacterBody3D, limbNum:int, local:bool = false):
 	var transform: Transform3D
 	match attack.attackLimb[limbNum]:
 		AttackData.limb.arm_L:
@@ -296,8 +321,10 @@ func get_bone_transform(attack:AttackData, char:CharacterBody3D, limbNum:int):
 			transform = char.get_bone_transform('wepon1.R')
 		_:
 			transform = char.get_bone_transform('')
-			
-	return char.skeleton.global_transform * transform
+	if local:
+		return transform
+	else:
+		return char.skeleton.global_transform * transform
 
 func _zero_z(t: Transform3D) -> Transform3D:
 	t.origin.z = 0.0

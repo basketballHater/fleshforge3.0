@@ -4,13 +4,14 @@
 
 [resource]
 script = ExtResource("1_5p2te")
+attackID = 0
 description = "Smashes Ground with stinger"
 is_unlocked = false
 attack_class = 9
 knockback = 20.0
 is_launcher = false
 speedAdd = 0
-hop = 0
+hop = 0.0
 range = Array[float]([0.5])
 input = 40
 nextCombo = {}

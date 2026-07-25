@@ -27,15 +27,15 @@ const SKIN_TEXTURE_MAP := {
 }
 
 # ── Body mesh references ──────────────────────────────────────────────────────
-var body_male:   Node3D  # male body mesh (named "body" in GLB)
-var body_female: Node3D  # female body mesh (named "skin" in GLB)
-var cuffMale_R: Node3D
-var cuffMale_L: Node3D
-var cuffFemale_R: Node3D
-var cuffFemale_L: Node3D
-var top1:        Node3D  # female top pieces
-var top2:        Node3D
-var top3:        Node3D
+#var body_male:   Node3D  # male body mesh (named "body" in GLB)
+#var body_female: Node3D  # female body mesh (named "skin" in GLB)
+#var cuffMale_R: Node3D
+#var cuffMale_L: Node3D
+#var cuffFemale_R: Node3D
+#var cuffFemale_L: Node3D
+#var top1:        Node3D  # female top pieces
+#var top2:        Node3D
+#var top3:        Node3D
 
 
 var _current_outfit_node: Node = null
@@ -89,12 +89,12 @@ func _ready() -> void:
 	#body_male   = character.get_node("Armature/Skeleton3D/body")
 	#body_female = character.get_node("Armature/Skeleton3D/skin")
 	#top1        = character.get_node("Armature/Skeleton3D/top1")
-	body_male   = character.get_node("Armature/Skeleton3D/male")
-	body_female = character.get_node("Armature/Skeleton3D/female")
-	cuffMale_R   = character.get_node("Armature/Skeleton3D/cuffMale_R")
-	cuffMale_L = character.get_node("Armature/Skeleton3D/cuffMale_L")
-	cuffFemale_R   = character.get_node("Armature/Skeleton3D/cuffFemale_R")
-	cuffFemale_L = character.get_node("Armature/Skeleton3D/cuffFemale_L")
+	#body_male   = character.get_node("Armature/Skeleton3D/male")
+	#body_female = character.get_node("Armature/Skeleton3D/female")
+	#cuffMale_R   = character.get_node("Armature/Skeleton3D/cuffMale_R")
+	#cuffMale_L = character.get_node("Armature/Skeleton3D/cuffMale_L")
+	#cuffFemale_R   = character.get_node("Armature/Skeleton3D/cuffFemale_R")
+	#cuffFemale_L = character.get_node("Armature/Skeleton3D/cuffFemale_L")
 	animation = character.get_node("AnimationPlayer")
 	#top2        = character.get_node("Armature/Skeleton3D/top2")
 	#top3        = character.get_node("Armature/Skeleton3D/top3")
@@ -114,28 +114,28 @@ func _ready() -> void:
 
 # ── Gender ────────────────────────────────────────────────────────────────────
 
-func _make_male(value: bool) -> void:
-	body_male.visible = value
-	cuffMale_R.visible = value
-	cuffMale_L.visible = value
+#func _make_male(value: bool) -> void:
+	#body_male.visible = value
+	#cuffMale_R.visible = value
+	#cuffMale_L.visible = value
 
 func _on_gender_selected(gender: String) -> void:
 	characterData.gender = gender
 	apply_gender(gender)
 
 
-func _make_female(value: bool) -> void:
-	body_female.visible = value
-	cuffFemale_R.visible = value
-	cuffFemale_L.visible = value
+#func _make_female(value: bool) -> void:
+	#body_female.visible = value
+	#cuffFemale_R.visible = value
+	#cuffFemale_L.visible = value
 	#top1.visible        = value
 	#top2.visible        = value
 	#top3.visible        = value
 
 func apply_gender(gender: String) -> void:
 	print("Character: apply_gender → ", gender)
-	_make_male(gender == "male")
-	_make_female(gender == "female")
+	#_make_male(gender == "male")
+	#_make_female(gender == "female")
 
 # ── Skin ──────────────────────────────────────────────────────────────────────
 
@@ -149,8 +149,8 @@ func apply_skin(skin_id: String) -> void:
 	if tex == null:
 		push_error("Character: failed to load texture at '%s'" % path)
 		return
-	_apply_texture_to_body(body_male,   tex)
-	_apply_texture_to_body(body_female, tex)
+	#_apply_texture_to_body(body_male,   tex)
+	#_apply_texture_to_body(body_female, tex)
 
 # ── Outfit ────────────────────────────────────────────────────────────────────
 
@@ -224,8 +224,11 @@ func _apply_packed_outfit(packed: PackedScene, is_top: bool) -> void:
 
 	var new_instance := MeshInstance3D.new()
 	new_instance.mesh     = outfit_mesh.mesh
+	print("NEW INSTANCE MESH", new_instance.mesh)
 	new_instance.skin     = _remap_skin(outfit_mesh.skin)
+	print("NEW INSTANCE SKIN", new_instance.skin)
 	new_instance.skeleton = _skeleton.get_path()
+	print("NEW INSTANCE SKELETON", new_instance.skeleton)
 
 	_skeleton.add_child(new_instance)
 	temp_root.queue_free()
